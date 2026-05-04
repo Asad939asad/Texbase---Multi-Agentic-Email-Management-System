@@ -1,0 +1,10 @@
+.galaxy-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  pointer-events: none;   /* CRITICAL: canvas must not block clicks on UI elements above it */
+}
+
+.galaxy-container canvas {
+  pointer-events: none;   /* belt-and-suspenders: the appended WebGL canvas also gets none */
+}

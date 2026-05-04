@@ -1,0 +1,23 @@
+{
+    "scraped_at": "2026-05-04T17:57:35.317983",
+    "source": "https://markets.businessinsider.com/commodities/cotton-price",
+    "label": "Cotton",
+    "category": "Price",
+    "current_value": "0.8",
+    "absolute_change": "-0.01",
+    "relative_change": "-1.78%",
+    "time": null,
+    "unit_conversions": [
+        {
+            "conversion": "1 Pound ≈ 0.453 Kilograms",
+            "cotton_price_label": "Cotton Price Per 1 Kilogram",
+            "price": "1.76 USD"
+        },
+        {
+            "conversion": "1 Pound = 16 Ounces",
+            "cotton_price_label": "Cotton Price Per 1 Ounce",
+            "price": "0.05 USD"
+        }
+    ],
+    "previous_close": "0.82"
+}

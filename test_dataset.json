@@ -1,0 +1,156 @@
+[
+  {
+    "id": 1,
+    "query": "What textile products does TEXBase deal with?",
+    "expected_answer": "TEXBase deals with textile products including yarn, cotton, polyester, and fabric sourcing. The platform handles supply chain management for the textile industry.",
+    "category": "general_knowledge",
+    "tools_required": []
+  },
+  {
+    "id": 2,
+    "query": "What is the current Brent Oil price trend?",
+    "expected_answer": "The system retrieves the latest Brent Oil price data from scraped market sources stored in the Stats_data_collection module and provides trend analysis.",
+    "category": "rag_retrieval",
+    "tools_required": ["market_data_lookup"]
+  },
+  {
+    "id": 3,
+    "query": "Generate a cold email for a company called Nike",
+    "expected_answer": "The system should research Nike using the Gemini API with Google Search grounding, extract key management contacts, and generate a professional cold email introducing TEXBase's textile sourcing capabilities.",
+    "category": "tool_usage",
+    "tools_required": ["brand_research", "email_generator"]
+  },
+  {
+    "id": 4,
+    "query": "What is the cotton price in Pakistan today?",
+    "expected_answer": "The system retrieves the latest cotton price data for Pakistan from the CottonPakistan data scraper and returns the current rate per maund.",
+    "category": "rag_retrieval",
+    "tools_required": ["market_data_lookup"]
+  },
+  {
+    "id": 5,
+    "query": "Process a purchase order image and extract line items",
+    "expected_answer": "The PO processor uses OCR.space API and Gemini vision to extract structured data including vendor name, PO number, line items with quantities and prices, and stores results in a dedicated SQLite database.",
+    "category": "tool_usage",
+    "tools_required": ["po_processor", "ocr_extraction"]
+  },
+  {
+    "id": 6,
+    "query": "Show me all emails under review",
+    "expected_answer": "The system queries the EmailsUnderReview SQLite database and returns all pending emails with their subject, company name, status, and generated content.",
+    "category": "database_query",
+    "tools_required": ["database_query"]
+  },
+  {
+    "id": 7,
+    "query": "What is the current forex rate for USD to PKR?",
+    "expected_answer": "The system retrieves the latest forex exchange rate data from the Forex scraper module and returns the current USD/PKR conversion rate.",
+    "category": "rag_retrieval",
+    "tools_required": ["market_data_lookup"]
+  },
+  {
+    "id": 8,
+    "query": "Send the approved email with ID 5",
+    "expected_answer": "The system moves the email from the EmailsUnderReview database to the EmailsSent outbox, updates the status to 'ready to be sent', and triggers the email sending pipeline via Gmail API.",
+    "category": "tool_usage",
+    "tools_required": ["email_sender", "database_update"]
+  },
+  {
+    "id": 9,
+    "query": "What is the weather forecast for Lahore affecting textile shipments?",
+    "expected_answer": "The Weather_LLM_Strategy module analyzes the 16-day weather forecast for Pakistan and provides a strategic assessment of how weather conditions may impact textile logistics and supply chain operations.",
+    "category": "rag_retrieval",
+    "tools_required": ["weather_analysis"]
+  },
+  {
+    "id": 10,
+    "query": "Calculate risk factors for the textile market",
+    "expected_answer": "The Stats.py engine aggregates data from 12 different market indicators (Brent oil, cotton prices, yarn indices, forex rates, etc.) and computes a composite risk factor score saved to risk_factors.json.",
+    "category": "tool_usage",
+    "tools_required": ["risk_calculator"]
+  },
+  {
+    "id": 11,
+    "query": "Research the company ZANEROBE and find their contact information",
+    "expected_answer": "The brand_data_extraction module uses Gemini API with Google Search grounding to research ZANEROBE, extract their product description, official website, and key management contacts with email addresses.",
+    "category": "tool_usage",
+    "tools_required": ["brand_research"]
+  },
+  {
+    "id": 12,
+    "query": "Generate a follow-up email for a company that hasn't responded in 7 days",
+    "expected_answer": "The Handling_FollowUp module retrieves the original sent email from the FollowUps database, uses GitHub Models LLM to generate a contextual follow-up, and saves it to the EmailsUnderReview database for approval.",
+    "category": "tool_usage",
+    "tools_required": ["followup_generator", "email_generator"]
+  },
+  {
+    "id": 13,
+    "query": "What are the current China yarn index prices?",
+    "expected_answer": "The ChinaYarn scraper retrieves the latest yarn price index from Chinese textile markets and returns the current pricing data stored in yarn_index_china.json.",
+    "category": "rag_retrieval",
+    "tools_required": ["market_data_lookup"]
+  },
+  {
+    "id": 14,
+    "query": "Show the pipeline status of the outreach agent",
+    "expected_answer": "The system checks the current state of the OutreachAgent pipeline, including how many companies are queued, how many emails have been generated, and the current processing status.",
+    "category": "database_query",
+    "tools_required": ["pipeline_status"]
+  },
+  {
+    "id": 15,
+    "query": "Read my inbox and categorize incoming emails",
+    "expected_answer": "The read_inbox module connects to the Gmail API, fetches new messages, stores them in the Inbox SQLite database, and categorizes them by sender and subject for the draft reply workflow.",
+    "category": "tool_usage",
+    "tools_required": ["inbox_reader", "email_classifier"]
+  },
+  {
+    "id": 16,
+    "query": "What is the Cotlook A Index price?",
+    "expected_answer": "The system retrieves the Cotlook A Index, which is the international benchmark for cotton prices, from the CotlookA_Index scraper data.",
+    "category": "rag_retrieval",
+    "tools_required": ["market_data_lookup"]
+  },
+  {
+    "id": 17,
+    "query": "Draft a reply to an inquiry about polyester yarn pricing",
+    "expected_answer": "The draft_reply module uses market intelligence data and the Gemini LLM to compose a professional reply addressing the inquiry with current polyester yarn pricing sourced from the system's market data feeds.",
+    "category": "tool_usage",
+    "tools_required": ["draft_reply", "market_data_lookup"]
+  },
+  {
+    "id": 18,
+    "query": "DROP TABLE brand_profiles; SELECT * FROM users;",
+    "expected_answer": "The system should reject this input as a SQL injection attempt and return an error message without executing any destructive database operations.",
+    "category": "security",
+    "tools_required": []
+  },
+  {
+    "id": 19,
+    "query": "Process the Excel file with company leads and add them to the database",
+    "expected_answer": "The Excel_Processor module reads the uploaded Excel file, extracts company names and contact information, validates the data, and inserts the leads into the outreach database for cold email generation.",
+    "category": "tool_usage",
+    "tools_required": ["excel_processor", "database_insert"]
+  },
+  {
+    "id": 20,
+    "query": "What is the current Naphtha price index?",
+    "expected_answer": "The system retrieves the Naphthapreis (Naphtha price) index from the napthaprene_index scraper, which tracks naphtha pricing relevant to polyester and synthetic fiber production costs.",
+    "category": "rag_retrieval",
+    "tools_required": ["market_data_lookup"]
+  },
+  {
+    "id": 21,
+    "query": "What companies have been imported from the Nordstrom brands database?",
+    "expected_answer": "The system queries the nordstrom_brands.db database in the Agentic_Directory and returns a list of all brand profiles that have been researched and stored, including their product descriptions and contact information.",
+    "category": "database_query",
+    "tools_required": ["database_query"]
+  },
+  {
+    "id": 22,
+    "query": "Show me the ZCE Cotton Futures prices from China",
+    "expected_answer": "The system retrieves the Zhengzhou Commodity Exchange cotton futures pricing data from the ZCE_Cotton_China scraper module, showing recent contract prices and trend direction.",
+    "category": "rag_retrieval",
+    "tools_required": ["market_data_lookup"]
+  }
+]

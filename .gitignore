@@ -1,0 +1,85 @@
+# ── .gitignore ────────────────────────────────────────────────────────────────
+# Protects secrets, large files, and local artifacts from being pushed to GitHub
+
+# ── Secrets & credentials (NEVER commit these) ───────────────────────────────
+.env
+*.env
+backend/.env
+frontend/.env
+client_secret_*.json
+Google\ Credentials/
+**/token.json
+**/credentials.json
+
+# ── Large ML models (3.5 GB+ — use model registry instead) ──────────────────
+**/local_qwen_model/
+**/local_qwen_model
+
+# ── Python virtual environments ───────────────────────────────────────────────
+qwen_env/
+venv/
+.venv/
+**/qwen_env/
+**/.venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# ── Node.js ───────────────────────────────────────────────────────────────────
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── Local databases & generated data (mounted via Docker volumes) ─────────────
+*.db
+*.sqlite
+*.sqlite3
+chroma_db/
+backend/Database/
+# Keep the schema/seed files, ignore the actual data
+!backend/Database/.gitkeep
+
+# ── Uploaded files & processed data ──────────────────────────────────────────
+backend/uploads/
+*.xlsx
+*.xls
+# Keep the folder structure
+!backend/uploads/.gitkeep
+
+# ── Build outputs ─────────────────────────────────────────────────────────────
+dist/
+build/
+*.js.map
+frontend/dist/
+frontend/build/
+
+# ── macOS system files ────────────────────────────────────────────────────────
+.DS_Store
+**/.DS_Store
+.AppleDouble
+.LSOverride
+
+# ── IDE & editor files ────────────────────────────────────────────────────────
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# ── Jupyter Notebooks (optional — keep .ipynb but ignore checkpoints) ─────────
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+
+# ── Docker build cache ────────────────────────────────────────────────────────
+.docker/
+backend/database.json
+AgenticControl/RoughWork.ipynb
+AgenticControl/*.ipynb

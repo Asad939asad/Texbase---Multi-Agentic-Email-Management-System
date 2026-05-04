@@ -1,0 +1,225 @@
+{
+    "generated_at": "2026-05-04T18:01:43.051788",
+    "forecast_period": "2026-05-04 to 2026-05-19",
+    "crop_season": "Kharif Sowing (Apr-Jun) — price-sensitive",
+    "regional_stats": {
+        "sindh": {
+            "region": "Sindh",
+            "total_rain_mm": 0.0,
+            "max_rain_chance_pct": 2,
+            "max_temp_c": 50.6,
+            "min_temp_c": 23.9,
+            "avg_max_temp_c": 45.2,
+            "max_consec_rainy_days": 0,
+            "heatwave_days_45plus": 36,
+            "peak_rain_event": {
+                "city": "Sanghar",
+                "date": "2026-05-04",
+                "mm": 0.0
+            },
+            "peak_heat_event": {
+                "city": "Ghotki",
+                "date": "2026-05-19",
+                "temp": 50.6
+            },
+            "city_summaries": [
+                {
+                    "city": "Ghotki",
+                    "total_rain_mm": 0.0,
+                    "max_rain_chance_pct": 0,
+                    "max_temp_c": 50.6,
+                    "avg_temp_c": 45.8,
+                    "total_rain_hours": 0.0
+                },
+                {
+                    "city": "Hyderabad",
+                    "total_rain_mm": 0.0,
+                    "max_rain_chance_pct": 2,
+                    "max_temp_c": 47.7,
+                    "avg_temp_c": 42.8,
+                    "total_rain_hours": 0.0
+                },
+                {
+                    "city": "Khairpur",
+                    "total_rain_mm": 0.0,
+                    "max_rain_chance_pct": 2,
+                    "max_temp_c": 50.5,
+                    "avg_temp_c": 46.4,
+                    "total_rain_hours": 0.0
+                },
+                {
+                    "city": "Sanghar",
+                    "total_rain_mm": 0.0,
+                    "max_rain_chance_pct": 2,
+                    "max_temp_c": 49.6,
+                    "avg_temp_c": 45.8,
+                    "total_rain_hours": 0.0
+                }
+            ]
+        },
+        "punjab": {
+            "region": "Punjab",
+            "total_rain_mm": 0.1,
+            "max_rain_chance_pct": 10,
+            "max_temp_c": 50.0,
+            "min_temp_c": 22.8,
+            "avg_max_temp_c": 43.7,
+            "max_consec_rainy_days": 0,
+            "heatwave_days_45plus": 38,
+            "peak_rain_event": {
+                "city": "Bahawalnagar",
+                "date": "2026-05-04",
+                "mm": 0.1
+            },
+            "peak_heat_event": {
+                "city": "Rahim Yar Khan",
+                "date": "2026-05-19",
+                "temp": 50.0
+            },
+            "city_summaries": [
+                {
+                    "city": "Bahawalnagar",
+                    "total_rain_mm": 0.1,
+                    "max_rain_chance_pct": 8,
+                    "max_temp_c": 48.3,
+                    "avg_temp_c": 43.3,
+                    "total_rain_hours": 1.0
+                },
+                {
+                    "city": "Bahawalpur",
+                    "total_rain_mm": 0.0,
+                    "max_rain_chance_pct": 3,
+                    "max_temp_c": 49.2,
+                    "avg_temp_c": 43.7,
+                    "total_rain_hours": 0.0
+                },
+                {
+                    "city": "Khanewal",
+                    "total_rain_mm": 0.0,
+                    "max_rain_chance_pct": 3,
+                    "max_temp_c": 49.5,
+                    "avg_temp_c": 43.0,
+                    "total_rain_hours": 0.0
+                },
+                {
+                    "city": "Lodhran",
+                    "total_rain_mm": 0.0,
+                    "max_rain_chance_pct": 3,
+                    "max_temp_c": 49.6,
+                    "avg_temp_c": 44.3,
+                    "total_rain_hours": 0.0
+                },
+                {
+                    "city": "Multan",
+                    "total_rain_mm": 0.0,
+                    "max_rain_chance_pct": 10,
+                    "max_temp_c": 48.3,
+                    "avg_temp_c": 43.3,
+                    "total_rain_hours": 0.0
+                },
+                {
+                    "city": "Rahim Yar Khan",
+                    "total_rain_mm": 0.0,
+                    "max_rain_chance_pct": 2,
+                    "max_temp_c": 50.0,
+                    "avg_temp_c": 44.7,
+                    "total_rain_hours": 0.0
+                }
+            ]
+        }
+    },
+    "critical_days": [],
+    "weather_strategy": {
+        "crop_risk_assessment": "High. The Kharif season faces extreme heatwaves (36-38 days above 45°C) with negligible rainfall (0-0.1mm) across all regions. This creates a 'dry heat' scenario where crops will suffer from severe water stress despite the lack of rain, leading to significant yield loss and quality degradation.",
+        "procurement_strategy": "Buy-now. Immediate procurement of high-grade, drought-resistant seeds and pre-harvested crops is mandatory to mitigate yield loss. Wait is not an option due to the 36-38 days of extreme heat.",
+        "logistics_advisory": [
+            "Ghotki: Avoid loading heavy machinery; temperatures exceed 50°C, risking engine failure and crop heat stress.",
+            "Sanghar: Monitor soil moisture closely; evaporation rates will be extreme due to high ambient temperature.",
+            "Multan: Ensure rapid transit to prevent heat damage during transit; avoid loading during peak afternoon hours.",
+            "Bahawalnagar: Check for localized flash flood risks despite low total rainfall; ensure drainage systems are clear."
+        ],
+        "operational_impacts": "Factory heat stress will be critical, requiring immediate cooling measures and potential shutdowns during peak heat events. Warehouse moisture levels will drop significantly, increasing the risk of dust accumulation and potential mold issues in stored grain if ventilation is insufficient.",
+        "ginning_quality_risk": "High. The combination of extreme heat and lack of water will result in kernels with poor moisture content and potential cracking, leading to lower oil content and higher rejection rates.",
+        "14_day_predictions": [
+            {
+                "date": "2026-05-04",
+                "city": "Sanghar",
+                "event": "Peak Rain Event",
+                "action": "Prepare drainage; monitor for localized flooding."
+            },
+            {
+                "date": "2026-05-19",
+                "city": "Ghotki",
+                "event": "Peak Heat Event",
+                "action": "Activate cooling systems; reduce outdoor labor."
+            },
+            {
+                "date": "2026-05-20",
+                "city": "Multan",
+                "event": "High Temp Warning",
+                "action": "Increase irrigation if water is available; monitor crop stress."
+            },
+            {
+                "date": "2026-05-21",
+                "city": "Sindh",
+                "event": "Heatwave Continues",
+                "action": "Review crop health; prepare for potential harvest delay."
+            },
+            {
+                "date": "2026-05-22",
+                "city": "Ghotki",
+                "event": "Heatwave Continues",
+                "action": "Check machinery performance; schedule maintenance."
+            },
+            {
+                "date": "2026-05-23",
+                "city": "Sanghar",
+                "event": "Heatwave Continues",
+                "action": "Monitor soil moisture; consider irrigation if available."
+            },
+            {
+                "date": "2026-05-24",
+                "city": "Multan",
+                "event": "Heatwave Continues",
+                "action": "Ensure warehouse ventilation; check for dust accumulation."
+            },
+            {
+                "date": "2026-05-25",
+                "city": "Ghotki",
+                "event": "Heatwave Continues",
+                "action": "Review crop yield estimates; assess quality."
+            },
+            {
+                "date": "2026-05-26",
+                "city": "Sanghar",
+                "event": "Heatwave Continues",
+                "action": "Monitor for pest outbreaks due to stress."
+            },
+            {
+                "date": "2026-05-27",
+                "city": "Multan",
+                "event": "Heatwave Continues",
+                "action": "Finalize harvest logistics; prepare for transport."
+            },
+            {
+                "date": "2026-05-28",
+                "city": "Ghotki",
+                "event": "Heatwave Continues",
+                "action": "Review final crop quality; assess market value."
+            },
+            {
+                "date": "2026-05-29",
+                "city": "Sanghar",
+                "event": "Heatwave Continues",
+                "action": "Prepare for potential harvest delay; plan alternative crops."
+            },
+            {
+                "date": "2026-05-30",
+                "city": "Multan",
+                "event": "Heatwave Continues",
+                "action": "Finalize logistics; ensure timely delivery."
+            }
+        ],
+        "overall_risk_score": 9
+    }
+}

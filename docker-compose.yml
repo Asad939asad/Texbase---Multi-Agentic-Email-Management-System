@@ -1,0 +1,59 @@
+# ── docker-compose.yml ───────────────────────────────────────────────────────
+# Multi-service orchestration for TEXBase
+#
+# Services:
+#   1. agent-api   – Node.js/Express server + Python agents
+#   2. vector-db   – ChromaDB for RAG vector storage
+#
+# Secret injection:
+#   All API keys are read from environment variables at runtime.
+#   On the host, create a .env file (git-ignored) or export the variables.
+#   No secret is ever baked into the image.
+#
+# Persistence:
+#   Named volumes ensure SQLite databases and Chroma indices survive
+#   container restarts and even full `docker compose down / up` cycles.
+# ─────────────────────────────────────────────────────────────────────────────
+
+services:
+  agent-api:
+    build: .
+    container_name: texbase-agent-api
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY_2=${GEMINI_API_KEY_2}
+      - GEMINI_API_KEY_3=${GEMINI_API_KEY_3}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - WORKSPACE_ROOT=/app
+      - PYTHON_EXE=/opt/venv/bin/python3
+      - CHROMA_SERVER_HOST=vector-db
+      - CHROMA_SERVER_PORT=8000
+    volumes:
+      - ./Database:/app/Database          # SQLite databases
+    depends_on:
+      vector-db:
+        condition: service_started
+    restart: unless-stopped
+
+  vector-db:
+    image: chromadb/chroma:latest
+    container_name: texbase-vector-db
+    ports:
+      - "8003:8000"
+    volumes:
+      - chroma-data:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+    restart: unless-stopped
+
+volumes:
+  chroma-data:
+    driver: local
+
+# ── Persistence Proof ───────────────────────────────────────────────────────
+# 1. ./Database is a bind-mount → SQLite files live on the HOST filesystem.
+#    Running `docker compose down && docker compose up -d` does NOT delete them.
+# 2. chroma-data is a named Docker volume → survives container lifecycle.
+#    Only `docker volume rm` explicitly destroys it.

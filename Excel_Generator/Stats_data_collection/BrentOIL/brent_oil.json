@@ -1,0 +1,11 @@
+{
+    "scraped_at": "2026-05-04T17:57:34.433668",
+    "source": "https://markets.businessinsider.com/commodities/oil-price",
+    "label": "Oil (Brent)",
+    "category": "Price",
+    "current_value": 110.16,
+    "previous_close": 109.2,
+    "absolute_change": 0.96,
+    "relative_change": "0.88%",
+    "time": null
+}

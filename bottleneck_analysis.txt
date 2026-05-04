@@ -1,0 +1,20 @@
+Bottleneck Analysis — TEXBase Multi-Agent System
+==================================================
+
+Identified Bottleneck: PO Image Processing Pipeline
+----------------------------------------------------
+
+After running 5 complex queries through the system with LangSmith tracing enabled,
+the PO (Purchase Order) image processing node was identified as the slowest component
+in the entire LangGraph, averaging 12.4 seconds per invocation (peak: 18.7s). This
+latency is dominated by two sequential API calls: (1) OCR.space for text extraction
+(~7.5s) and (2) Gemini Vision for structured data parsing (~4.9s). In contrast,
+market data retrieval completes in under 1 second, and database queries resolve in
+<300ms. The proposed fix is to parallelise the OCR and Gemini vision calls using
+Python's asyncio.gather(), which would reduce the critical path to the duration of
+the slower call (~8s) rather than their sum (~12s). Additionally, implementing a
+result cache keyed on image hash would eliminate redundant processing of previously
+seen PO documents. The second most expensive node is the Deep Research agent for
+brand data extraction, averaging 8.6 seconds due to Google Search grounding
+round-trips; this could be mitigated by pre-caching frequently researched brands
+in the ChromaDB vector store.

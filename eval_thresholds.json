@@ -1,0 +1,22 @@
+{
+  "description": "TEXBase Agent Quality Gate Thresholds",
+  "version": "1.0.0",
+  "last_updated": "2026-05-04",
+  "thresholds": {
+    "faithfulness": {
+      "minimum": 0.70,
+      "description": "Measures whether the agent's response stays true to the retrieved context without hallucination.",
+      "justification": "Set at 0.70 because the textile market domain requires factual accuracy — a 10% increase to 0.80 would cause frequent false-negatives on creative email generation tasks where LLM paraphrasing is expected. A 10% decrease to 0.60 would allow too many hallucinated market figures, which is unacceptable for business communications."
+    },
+    "answer_relevancy": {
+      "minimum": 0.75,
+      "description": "Measures how well the agent's response addresses the user's specific query.",
+      "justification": "Set at 0.75 because the system handles diverse query types (market data, email drafting, PO processing). Increasing to 0.85 would penalize valid but tangentially informative responses (e.g., including related commodity prices). Decreasing to 0.65 would allow responses that drift too far from the original query intent."
+    },
+    "tool_call_accuracy": {
+      "minimum": 0.80,
+      "description": "Measures whether the agent invoked the correct tool with correct arguments.",
+      "justification": "Set at 0.80 because incorrect tool routing (e.g., calling email_sender instead of draft_reply) can cause irreversible side effects like sending an unreviewed email. A 10% increase to 0.90 is aspirational but may fail on ambiguous queries. A 10% decrease to 0.70 is too risky for a production email system."
+    }
+  }
+}

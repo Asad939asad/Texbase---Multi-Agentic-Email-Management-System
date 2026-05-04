@@ -1,0 +1,53 @@
+{
+    "scraped_at": "2026-05-04T17:57:35.489670",
+    "terephthalic_acid": {
+        "title": "Terephthalic acid price April 2026 and outlook (see chart below)",
+        "regions": [
+            {
+                "region": "North America",
+                "price": "US$1.18/KG",
+                "change": "11.3% up"
+            },
+            {
+                "region": "Europe",
+                "price": "US$0.91/KG",
+                "change": "11% up"
+            },
+            {
+                "region": "Northeast Asia",
+                "price": "US$0.93/KG",
+                "change": "9.4% up"
+            },
+            {
+                "region": "Southeast Asia",
+                "price": "US$0.96/KG",
+                "change": "12.9% up"
+            }
+        ]
+    },
+    "ethylene_glycol": {
+        "title": "Ethylene Glycol price April 2026 and outlook (see chart below)",
+        "regions": [
+            {
+                "region": "North America",
+                "price": "US$0.53/KG",
+                "change": "15.2% up"
+            },
+            {
+                "region": "Europe",
+                "price": "US$0.87/KG",
+                "change": "13% up"
+            },
+            {
+                "region": "Northeast Asia",
+                "price": "US$0.64/KG",
+                "change": "1.6% up"
+            },
+            {
+                "region": "Middle East",
+                "price": "US$0.64/KG",
+                "change": "14.3% up"
+            }
+        ]
+    }
+}

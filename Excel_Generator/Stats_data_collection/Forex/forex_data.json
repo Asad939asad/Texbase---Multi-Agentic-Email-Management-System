@@ -1,0 +1,191 @@
+{
+    "scraped_at": "2026-05-04T17:57:14.996417",
+    "investing_pairs": {
+        "USD_PKR": {
+            "last_price": "278.714",
+            "change": "-0.111",
+            "percent_change": "(-0.04%)"
+        },
+        "EUR_PKR": {
+            "last_price": "326.635",
+            "change": "+0.233",
+            "percent_change": "(+0.07%)"
+        },
+        "EUR_USD": {
+            "last_price": "1.1712",
+            "change": "-0.0009",
+            "percent_change": "(-0.08%)"
+        },
+        "CNY_PKR": {
+            "last_price": "40.81",
+            "change": "-0.02",
+            "percent_change": "(-0.06%)"
+        }
+    },
+    "usdpkr_forwards": [
+        {
+            "name": "USDPKR ON FWD",
+            "bid": "5.0000",
+            "ask": "7.0000",
+            "high": "6.0000",
+            "low": "6.0000",
+            "change": "0.0000"
+        },
+        {
+            "name": "USDPKR SW FWD",
+            "bid": "35.0000",
+            "ask": "45.0000",
+            "high": "40.0000",
+            "low": "40.0000",
+            "change": "0.0000"
+        },
+        {
+            "name": "USDPKR 2W FWD",
+            "bid": "65.0000",
+            "ask": "75.0000",
+            "high": "70.0000",
+            "low": "70.0000",
+            "change": "5.0000"
+        },
+        {
+            "name": "USDPKR 1M FWD",
+            "bid": "105.0000",
+            "ask": "120.0000",
+            "high": "112.5000",
+            "low": "112.5000",
+            "change": "15.0000"
+        },
+        {
+            "name": "USDPKR 2M FWD",
+            "bid": "190.0000",
+            "ask": "210.0000",
+            "high": "200.0000",
+            "low": "200.0000",
+            "change": "35.0000"
+        },
+        {
+            "name": "USDPKR 3M FWD",
+            "bid": "280.0000",
+            "ask": "300.0000",
+            "high": "290.0000",
+            "low": "290.0000",
+            "change": "40.0000"
+        },
+        {
+            "name": "USDPKR 4M FWD",
+            "bid": "370.0000",
+            "ask": "390.0000",
+            "high": "380.0000",
+            "low": "380.0000",
+            "change": "50.0000"
+        },
+        {
+            "name": "USDPKR 5M FWD",
+            "bid": "400.0000",
+            "ask": "420.0000",
+            "high": "410.0000",
+            "low": "410.0000",
+            "change": "10.0000"
+        },
+        {
+            "name": "USDPKR 6M FWD",
+            "bid": "530.0000",
+            "ask": "560.0000",
+            "high": "545.0000",
+            "low": "545.0000",
+            "change": "40.0000"
+        },
+        {
+            "name": "USDPKR 7M FWD",
+            "bid": "575.0000",
+            "ask": "675.0000",
+            "high": "625.0000",
+            "low": "625.0000",
+            "change": "10.0000"
+        },
+        {
+            "name": "USDPKR 8M FWD",
+            "bid": "680.0000",
+            "ask": "780.0000",
+            "high": "730.0000",
+            "low": "730.0000",
+            "change": "10.0000"
+        },
+        {
+            "name": "USDPKR 9M FWD",
+            "bid": "790.0000",
+            "ask": "890.0000",
+            "high": "840.0000",
+            "low": "840.0000",
+            "change": "15.0000"
+        },
+        {
+            "name": "USDPKR 10M FWD",
+            "bid": "900.0000",
+            "ask": "1000.0000",
+            "high": "950.0000",
+            "low": "950.0000",
+            "change": "15.0000"
+        },
+        {
+            "name": "USDPKR 11M FWD",
+            "bid": "1000.0000",
+            "ask": "1100.0000",
+            "high": "1050.0000",
+            "low": "1050.0000",
+            "change": "0.0000"
+        },
+        {
+            "name": "USDPKR 1Y FWD",
+            "bid": "1000.0000",
+            "ask": "1200.0000",
+            "high": "1100.0000",
+            "low": "1100.0000",
+            "change": "0.0000"
+        }
+    ],
+    "open_market": {
+        "USD_PKR": {
+            "buying": "279.05",
+            "selling": "279.85"
+        },
+        "EUR_PKR": {
+            "buying": "326.29",
+            "selling": "331.53"
+        },
+        "GBP_PKR": {
+            "buying": "377.69",
+            "selling": "383.50"
+        }
+    },
+    "pakistan_indicators": {
+        "foreign_exchange_reserves": {
+            "value": "21789.60",
+            "previous": "21192.80",
+            "unit": "USD Million",
+            "date": "Mar 2026"
+        },
+        "interbank_rate": {
+            "value": "11.19",
+            "previous": "10.42",
+            "unit": "percent"
+        },
+        "interest_rate": {
+            "value": "11.50",
+            "previous": "10.50",
+            "unit": "percent"
+        }
+    },
+    "kibid_kibor": {
+        "KIBID_6M": {
+            "name": "Six-Months Karachi Interbank Bid Rate",
+            "latest_date": "30-Apr-2026",
+            "latest_value": 11.71
+        },
+        "KIBOR_6M": {
+            "name": "Six-Months Karachi Interbank Offer Rate",
+            "latest_date": "30-Apr-2026",
+            "latest_value": 11.96
+        }
+    }
+}

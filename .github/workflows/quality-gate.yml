@@ -1,0 +1,59 @@
+name: TEXBase Quality Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    name: Evaluation & Quality Gate
+
+    steps:
+      # ── 1. Checkout code ──────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── 2. Set up Python ──────────────────────────────────────────────────
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # ── 3. Install dependencies ───────────────────────────────────────────
+      - name: Install evaluation dependencies
+        run: |
+          pip install google-genai
+
+      # ── 4. Run evaluation script ──────────────────────────────────────────
+      # Secrets are injected from GitHub's encrypted secret store.
+      # NEVER hardcode credentials in this file.
+      - name: Run Quality Gate Evaluation
+        env:
+          GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}
+        run: |
+          python run_eval.py
+
+      # ── 5. Upload results as artifact ─────────────────────────────────────
+      - name: Upload evaluation results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluation-results
+          path: eval_results.json
+
+      # ── 6. Post summary to PR ────────────────────────────────────────────
+      - name: Post evaluation summary
+        if: always()
+        run: |
+          echo "## 📊 TEXBase Quality Gate Results" >> $GITHUB_STEP_SUMMARY
+          python3 -c "
+          import json
+          with open('eval_results.json') as f:
+              r = json.load(f)
+          for m in r['metrics']:
+              icon = '✅' if m['passed'] else '❌'
+              print(f'| {m[\"name\"]} | {m[\"score\"]:.4f} | {m[\"threshold\"]} | {icon} |')
+          " >> $GITHUB_STEP_SUMMARY

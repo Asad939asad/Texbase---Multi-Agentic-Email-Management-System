@@ -1,0 +1,147 @@
+[
+  {
+    "category": "Pricing & Negotiation",
+    "correction_name": "Don't Reveal Price Yet (Ask Target)",
+    "description_of_change": "Remove the specific price quote and instead ask for their 'Target Price' first to check alignment."
+  },
+  {
+    "category": "Pricing & Negotiation",
+    "correction_name": "Justify High Price (Cotton Rates)",
+    "description_of_change": "Explain that the price increase is driven by a sudden spike in raw cotton/yarn market rates, not increased margins."
+  },
+  {
+    "category": "Pricing & Negotiation",
+    "correction_name": "Push for Volume (FCL)",
+    "description_of_change": "Stipulate that the quoted price is valid only for a Full Container Load (FCL) and split shipments incur a surcharge."
+  },
+  {
+    "category": "Pricing & Negotiation",
+    "correction_name": "Refuse Payment Terms (No L/C)",
+    "description_of_change": "Politely reject the Letter of Credit (L/C) for this order size and insist on 30% advance T/T."
+  },
+  {
+    "category": "Pricing & Negotiation",
+    "correction_name": "Valid for limited time",
+    "description_of_change": "Add urgency by stating the quote expires soon due to market volatility."
+  },
+  {
+    "category": "Pricing & Negotiation",
+    "correction_name": "Upsell Sustainability",
+    "description_of_change": "Justify the higher price by highlighting that the product uses GOTS certified Organic Cotton."
+  },
+  {
+    "category": "Pricing & Negotiation",
+    "correction_name": "Remove Accessories to Lower Price",
+    "description_of_change": "Suggest meeting their target price by removing custom hang-tags/packaging or switching to cheaper trims."
+  },
+  {
+    "category": "Pricing & Negotiation",
+    "correction_name": "Ask Buyer for Quotation",
+    "description_of_change": "Instead of offering a price, explicitly ask the buyer to send their formal Request for Quotation (RFQ) or target specs."
+  },
+  {
+    "category": "Sampling & Approvals",
+    "correction_name": "Charge for Samples",
+    "description_of_change": "Clarify that samples are charged at 3x FOB, refundable upon placing the bulk order."
+  },
+  {
+    "category": "Sampling & Approvals",
+    "correction_name": "Need Physical Swatch",
+    "description_of_change": "State that color matching cannot be done via PDF/Photo and requires a physical fabric cutting."
+  },
+  {
+    "category": "Sampling & Approvals",
+    "correction_name": "Lab Dip Timeline Reality",
+    "description_of_change": "Correct the timeline expectation, noting that Lab Dips require 5-7 working days."
+  },
+  {
+    "category": "Sampling & Approvals",
+    "correction_name": "Approve Strike-Off Immediately",
+    "description_of_change": "Urge immediate approval of the print strike-off to avoid missing the production slot."
+  },
+  {
+    "category": "Sampling & Approvals",
+    "correction_name": "Clarify Hand-Feel Costs",
+    "description_of_change": "Explain that the requested 'soft hand feel' requires a specific Silicon/Enzyme wash, adding to the cost."
+  },
+  {
+    "category": "Sampling & Approvals",
+    "correction_name": "Tech Pack is Incomplete",
+    "description_of_change": "State that an accurate quote is impossible because the Tech Pack lacks size specs or BOM."
+  },
+  {
+    "category": "Production & Logistics",
+    "correction_name": "Production Lines are Full",
+    "description_of_change": "Create scarcity by stating capacity is booked until May, requiring immediate confirmation for a slot."
+  },
+  {
+    "category": "Production & Logistics",
+    "correction_name": "Propose Split Shipment",
+    "description_of_change": "Propose shipping 20% by Air (at buyer's cost) and the rest by Sea to meet the launch deadline."
+  },
+  {
+    "category": "Production & Logistics",
+    "correction_name": "Blame the Mill/Dye House",
+    "description_of_change": "Soften delay news by attributing it to a technical bottleneck at the dyeing stage rather than oversight."
+  },
+  {
+    "category": "Production & Logistics",
+    "correction_name": "Holiday Warning",
+    "description_of_change": "Remind the buyer of upcoming factory closures (Eid/CNY) and the need to finalize orders immediately."
+  },
+  {
+    "category": "Production & Logistics",
+    "correction_name": "Confirm Forwarder",
+    "description_of_change": "Request details of the buyer's Nominated Freight Forwarder to book the vessel."
+  },
+  {
+    "category": "Tone & Relationship",
+    "correction_name": "Make it Premium (Less Desperate)",
+    "description_of_change": "Rewrite to sound like a high-end, busy manufacturer who selects clients, removing overly eager language."
+  },
+  {
+    "category": "Tone & Relationship",
+    "correction_name": "Soften the Blow (Partnership)",
+    "description_of_change": "Soften harsh news regarding delays by focusing on long-term partnership and apology."
+  },
+  {
+    "category": "Tone & Relationship",
+    "correction_name": "New Buyer Format (Formal)",
+    "description_of_change": "Adopt a formal tone, mentioning company history and attaching the Company Profile/ISO Certificates."
+  },
+  {
+    "category": "Tone & Relationship",
+    "correction_name": "Old Friend Format (Casual)",
+    "description_of_change": "Drop formal salutations, use a casual tone, and reference personal connections or recent trips."
+  },
+  {
+    "category": "Tone & Relationship",
+    "correction_name": "Ego Stroke",
+    "description_of_change": "Compliment the buyer's recent collection seen online/in-store before discussing business."
+  },
+  {
+    "category": "Structure & Clarity",
+    "correction_name": "Make it Concise (To the Point)",
+    "description_of_change": "Remove fluff, pleasantries, and fillers. State the core message and request immediately."
+  },
+  {
+    "category": "Compliance & Trust",
+    "correction_name": "Add Certification Details",
+    "description_of_change": "Explicitly list relevant certifications (e.g., GOTS, OEKO-TEX, WRAP) in the body to build trust."
+  },
+  {
+    "category": "Call to Action",
+    "correction_name": "Ask for a Zoom Call",
+    "description_of_change": "Propose a short Zoom call to finalize specs instead of continuing email threads."
+  },
+  {
+    "category": "Call to Action",
+    "correction_name": "Send the PO",
+    "description_of_change": "Stop discussion and request the official Purchase Order (PO) to proceed with yarn ordering."
+  },
+  {
+    "category": "Call to Action",
+    "correction_name": "Confirm Trade Show Meeting",
+    "description_of_change": "Ask if the buyer will attend upcoming trade shows (Heimtextil/Magic) to arrange a meeting."
+  }
+]
