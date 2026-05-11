@@ -11,7 +11,7 @@ const PipelineFeedbackWidget: React.FC<Props> = ({ actionDescription, outcomeMes
 
   const send = async (type: 'good' | 'partial' | 'bad') => {
     try {
-      await fetch('http://localhost:5050/api/feedback/inbox_flow', {
+      await fetch('/api/feedback/inbox_flow', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

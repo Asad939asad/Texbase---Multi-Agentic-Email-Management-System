@@ -12,7 +12,7 @@ const MarketFeedbackWidget: React.FC<Props> = ({ parameterName, predictionSummar
 
   const send = async (type: 'good' | 'bad', annotation?: { excerpt: string; comment: string }) => {
     try {
-      await fetch('http://localhost:5050/api/feedback/market_analysis', {
+      await fetch('/api/feedback/market_analysis', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
