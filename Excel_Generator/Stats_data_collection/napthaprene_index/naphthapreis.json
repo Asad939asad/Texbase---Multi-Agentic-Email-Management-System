@@ -1,18 +1,18 @@
 {
-    "scraped_at": "2026-05-04T17:56:35.988550",
+    "scraped_at": "2026-05-10T18:16:04.534828",
     "source": "https://markets.businessinsider.com/commodities/naphthapreis",
     "label": "Naphthapreis (European)",
     "category": "Price",
-    "current_value": 954.08,
-    "previous_close": 936.23,
-    "absolute_change": 17.85,
-    "relative_change": "1.91%",
+    "current_value": 890.87,
+    "previous_close": 866.3,
+    "absolute_change": 24.57,
+    "relative_change": "2.84%",
     "time": null,
     "unit_conversions": [
         {
             "conversion": "1 Ton = 1,000 Kilograms",
             "price_label": "Naphthapreis (European) Price Per 1 Kilogram",
-            "price": "0.95 USD"
+            "price": "0.89 USD"
         }
     ]
 }

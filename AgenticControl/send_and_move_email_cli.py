@@ -31,7 +31,7 @@ def send_then_move(email_id: int):
         cursor = conn.cursor()
         cursor.execute(
             "SELECT id, body_json, timestamp, followup_date, status, "
-            "company_name, generated_subject, company_email "
+            "company_name, generated_subject, company_email, Unique_application_id "
             "FROM tracking WHERE id = ?",
             (email_id,)
         )
@@ -49,11 +49,12 @@ def send_then_move(email_id: int):
         "body_json":     row[1],   # body_json
         "company_email": row[7],   # company_email
         "company_name":  row[5],   # company_name
+        "unique_id":     row[8],   # Unique_application_id
     }
 
     # ── Step 2: SEND the email via Gmail ────────────────────────────────────────
     try:
-        result = send_email_from_database(db_row, DATABASE_JSON)
+        result = send_email_from_database(db_row, DATABASE_JSON, existing_unique_id=db_row["unique_id"])
         if result is None:
             # send_email_from_database prints the error itself but returns None on failure
             print(json.dumps({"ok": False, "error": "Gmail send failed — check server logs. Email NOT moved."}))

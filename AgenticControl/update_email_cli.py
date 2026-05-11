@@ -14,10 +14,11 @@ if __name__ == "__main__":
             print(json.dumps({"ok": False, "error": "Missing id or feedback"}))
             sys.exit(1)
             
-        success = update_single_email(db_id=target_id, feedback=feedback)
+        result = update_single_email(db_id=target_id, feedback=feedback)
         
-        if success:
-            print(json.dumps({"ok": True}))
+        if result:
+            new_body, new_subject = result
+            print(json.dumps({"ok": True, "new_content": new_body, "new_subject": new_subject}))
         else:
             print(json.dumps({"ok": False, "error": "Unknown error during email update"}))
             

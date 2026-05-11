@@ -130,9 +130,10 @@ INSTRUCTIONS — STRUCTURE & LENGTH (CRITICAL):
      or "Happy to send samples and pricing — just say the word.")
 
 INSTRUCTIONS — TONE:
-- Confident, peer-to-peer, human. NOT corporate. NOT robotic.
+- Professional, marketing-focused, and results-driven. Direct but collaborative.
 - Avoid: "thrilled", "excited", "delve", "leverage", "synergy", "cutting-edge".
-- Write as a senior sales professional, not a marketing bot.
+- Write as a company leader, not a marketing associate or an AI bot.
+- Eliminate "robotic" openers; start with value, not pleasantries.
 - If key executives are known, address the email to them by name.
 
 INSTRUCTIONS — PERSONALISATION:
@@ -162,7 +163,7 @@ CRITICAL OUTPUT REQUIREMENT:
             temperature=0.75,
             top_p=1.0,
             max_tokens=1200,
-            model="mistral-ai/mistral-medium-2505"
+            model="meta/Llama-3.3-70B-Instruct" 
         )
 
         content = response.choices[0].message.content.strip()
@@ -195,7 +196,8 @@ def generate_application_body(company_data: dict, user_data: dict) -> str:
 # ==========================================
 if __name__ == "__main__":
     import sqlite3
-    DB_PATH = os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/outreach_data/excel_data.db')))
+    ROOT_DIR = os.environ.get('WORKSPACE_ROOT', '.')
+    DB_PATH = os.path.join(ROOT_DIR, 'Database/outreach_data/excel_data.db')
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     row = conn.execute("SELECT * FROM outreach_companies LIMIT 1").fetchone()

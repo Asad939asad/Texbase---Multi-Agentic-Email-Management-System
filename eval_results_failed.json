@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-05-06T11:45:10.987654",
+  "mode": "degraded",
+  "total_test_cases": 40,
+  "metrics": [
+    {
+      "name": "faithfulness",
+      "score": 0.421,
+      "threshold": 0.7,
+      "passed": false
+    },
+    {
+      "name": "answer_relevancy",
+      "score": 0.512,
+      "threshold": 0.75,
+      "passed": false
+    },
+    {
+      "name": "tool_call_accuracy",
+      "score": 0.585,
+      "threshold": 0.8,
+      "passed": false
+    }
+  ],
+  "overall_pass": false
+}

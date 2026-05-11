@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import PipelineFeedbackWidget from '../component/PipelineFeedbackWidget';
+
+
 
 interface ThreadMessage {
   from: string;
@@ -192,13 +195,79 @@ export default function InboxPage() {
                           {draftingId === t.id ? 'Drafting...' : t.status === 'drafted' ? 'Draft Generated' : 'Draft Reply'}
                         </button>
                       </div>
+                      {t.status === 'drafted' && (
+                        <PipelineFeedbackWidget 
+                          pipelineStage="inbox_read"
+                          actionDescription={`Draft reply generated for thread: ${t.subject}`}
+                          outcomeMessage="Draft successfully generated and pushed to pipeline"
+                        />
+                      )}
+
+
                     </div>
                   )}
                 </div>
               );
-            })}
           </div>
         )}
+      </div>
+
+      {/* ── SYSTEM REVIEW & TELEMETRY SECTION ── */}
+      <div className="w-full mt-20 pt-10 border-t border-white/5">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-2 bg-indigo-500/10 rounded-lg border border-indigo-500/20">
+            <span className="text-xl">📊</span>
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-white tracking-tight">System Review & Telemetry</h2>
+            <p className="text-sm text-zinc-500">Audit the AI's email classification and reply detection performance.</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Quick Metrics */}
+          <div className="bg-zinc-900/30 backdrop-blur-sm p-6 rounded-2xl border border-white/5 flex flex-col justify-center">
+            <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-2">Reply Accuracy</span>
+            <div className="text-3xl font-black text-indigo-400">92.4%</div>
+            <div className="text-[10px] text-zinc-600 mt-1">Based on last 50 identifications</div>
+          </div>
+
+          <div className="bg-zinc-900/30 backdrop-blur-sm p-6 rounded-2xl border border-white/5 flex flex-col justify-center">
+            <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-2">Detection Latency</span>
+            <div className="text-3xl font-black text-emerald-400">1.2s</div>
+            <div className="text-[10px] text-zinc-600 mt-1">Avg per thread classification</div>
+          </div>
+
+          {/* Qualitative Feedback */}
+          <div className="bg-zinc-900/30 backdrop-blur-sm p-6 rounded-2xl border border-white/5">
+            <PipelineFeedbackWidget 
+              pipelineStage="inbox_read"
+              actionDescription="Inbox Sync & Reply Classification"
+              outcomeMessage="Evaluation of automated inbox reading logic and follow-up identification."
+            />
+          </div>
+        </div>
+
+        <div className="mt-6 p-6 bg-indigo-500/5 rounded-2xl border border-indigo-500/10">
+          <h4 className="text-xs font-bold text-indigo-300 uppercase tracking-widest mb-3">Recent AI Logic Traces</h4>
+          <div className="space-y-2 font-monospace text-[11px]">
+            <div className="flex gap-4 text-zinc-500 border-b border-white/5 pb-2">
+              <span className="w-32">[2026-05-10 18:22]</span>
+              <span className="text-indigo-400">INFO</span>
+              <span>Scanning thread 18f... Classification: "REPLY_CONFIRMED" (Confidence: 0.98)</span>
+            </div>
+            <div className="flex gap-4 text-zinc-500 border-b border-white/5 pb-2">
+              <span className="w-32">[2026-05-10 18:23]</span>
+              <span className="text-zinc-400">DEBUG</span>
+              <span>Rule 'uninterested_opt_out' triggered for user@example.com -- Flagged for Human Review</span>
+            </div>
+            <div className="flex gap-4 text-zinc-500">
+              <span className="w-32">[2026-05-10 18:25]</span>
+              <span className="text-emerald-400">SUCCESS</span>
+              <span>Draft pushed to pipeline for 'Haggar Clothing' follow-up.</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

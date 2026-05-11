@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import FollowupFeedbackWidget from '../component/FollowupFeedbackWidget';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 export interface ReviewRecord {
@@ -385,10 +386,19 @@ const TrackingDashboard: React.FC = () => {
                     </div>
                   )}
 
-                  {/* Row 4: Summary snippet (follow-ups only) */}
+                  {/* Row 4: Summary snippet & Feedback (follow-ups only) */}
                   {record.type === 'followup' && record.overall_summary && (
-                    <div className="mt-2 text-xs text-zinc-500 italic line-clamp-2 border-t border-zinc-800/50 pt-2">
-                      {record.overall_summary.split('\n').at(-1)}
+                    <div className="mt-2 border-t border-zinc-800/50 pt-2 flex flex-col gap-3">
+                      <div className="text-xs text-zinc-500 italic line-clamp-2">
+                        {record.overall_summary.split('\n').at(-1)}
+                      </div>
+                      <div onClick={e => e.stopPropagation()}>
+                        <FollowupFeedbackWidget 
+                          appId={record.Unique_application_id || String(record.id)}
+                          summary={record.overall_summary}
+                          context={record.context || ''}
+                        />
+                      </div>
                     </div>
                   )}
 

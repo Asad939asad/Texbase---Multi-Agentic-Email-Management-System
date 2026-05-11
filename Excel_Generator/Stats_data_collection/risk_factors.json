@@ -1,52 +1,52 @@
 {
-    "generated_at": "2026-05-04T18:02:02.962163",
+    "generated_at": "2026-05-10T18:19:07.596194",
     "summary": {
-        "total_rules_evaluated": 50,
-        "alerts_triggered": 19,
+        "total_rules_evaluated": 48,
+        "alerts_triggered": 20,
         "critical_alerts": 2,
-        "high_alerts": 5,
+        "high_alerts": 6,
         "medium_alerts": 12
     },
-    "llm_strategic_analysis": "{\n  \"market_overview\": \"High volatility environment driven by extreme heat stress in Pakistan (yield risk), rising input costs for polyester (TPA/EG), and currency fluctuations. Immediate action required on cotton supply security and input hedging.\",\n  \"critical_actions\": [\n    \"Source backup cotton supply immediately due to extreme heat stress and potential yield losses.\",\n    \"Lock in polyester contracts immediately as TPA and EG prices are rising, risking 8-12% cost spike.\",\n    \"Do not buy China yarn now; wait for a 5-10% correction before entry.\",\n    \"Factor KIBOR 11.96% into pricing calculations for working capital costs.\",\n    \"Accelerate procurement of reactive dyes and naphtha inputs due to rising crude prices.\"\n  ],\n  \"cotton_dept\": \"Source backup supply immediately due to extreme heat stress and potential yield losses.\",\n  \"yarn_dept\": \"Do not buy China yarn now; wait for a 5-10% correction before entry.\",\n  \"chemicals_dept\": \"Stock up on reactive dyes and naphtha inputs due to rising crude prices.\",\n  \"forex_dept\": \"Factor KIBOR 11.96% into pricing calculations for working capital costs.\",\n  \"14_day_watchlist\": [\n    \"Pakistan Cotton Price Spread\",\n    \"Crop Season Calendar Alert\",\n    \"Polyester Input Compound Risk\",\n    \"GBP Export Invoicing Signal\",\n    \"KIBOR Working Capital Cost\",\n    \"Heat Stress Alert\",\n    \"Sowing Season Heat Risk\",\n    \"Procurement Buy Window Open\"\n  ],\n  \"compound_risk_score\": 9\n}\n",
+    "llm_strategic_analysis": "LLM Connection Error: HTTPConnectionPool(host='localhost', port=8003): Max retries exceeded with url: /generate (Caused by NewConnectionError(\"HTTPConnection(host='localhost', port=8003): Failed to establish a new connection: [Errno 61] Connection refused\"))",
     "data_snapshot": {
-        "brent_price": 110.16,
-        "brent_prev": 109.2,
-        "brent_change": 0.96,
-        "brent_change_pct": 0.88,
-        "china_yarn_price": 22385.0,
-        "china_yarn_change": -105.0,
-        "china_yarn_change_pct": -0.47,
-        "china_yarn_52wk_low": 18795.0,
-        "china_yarn_52wk_high": 22840.0,
-        "cotlook_a_latest": 1.702,
-        "cotlook_a_date": "March 31, 2026",
-        "cotlook_a_prev_month": 1.633,
-        "ice_cotton_price": 0.8,
-        "ice_cotton_prev": 0.82,
-        "ice_cotton_change_pct": -1.78,
+        "brent_price": 101.29,
+        "brent_prev": 103.37,
+        "brent_change": -2.08,
+        "brent_change_pct": -2.01,
+        "china_yarn_price": 22415.0,
+        "china_yarn_change": -50.0,
+        "china_yarn_change_pct": -0.22,
+        "china_yarn_52wk_low": 19235.0,
+        "china_yarn_52wk_high": 22955.0,
+        "cotlook_a_latest": 1.905,
+        "cotlook_a_date": "April 30, 2026",
+        "cotlook_a_prev_month": 1.702,
+        "ice_cotton_price": 0.85,
+        "ice_cotton_prev": 0.83,
+        "ice_cotton_change_pct": 2.08,
         "pk_cotton_min_40kg": 7350.0,
         "pk_cotton_max_40kg": 9800.0,
         "pk_cotton_per_kg": 245.0,
-        "usd_pkr": 278.714,
-        "usd_pkr_change_pct": -0.04,
-        "eur_pkr": 326.635,
-        "eur_usd": 1.1712,
-        "cny_pkr": 40.81,
-        "open_usd_buy": 279.05,
-        "open_usd_sell": 279.85,
-        "open_eur_buy": 326.29,
-        "open_gbp_buy": 377.69,
+        "usd_pkr": 278.625,
+        "usd_pkr_change_pct": 0.01,
+        "eur_pkr": 328.388,
+        "eur_usd": 1.1786,
+        "cny_pkr": 40.97,
+        "open_usd_buy": 279.0,
+        "open_usd_sell": 279.75,
+        "open_eur_buy": 327.82,
+        "open_gbp_buy": 379.19,
         "pk_interest_rate": 11.5,
         "pk_interbank_rate": 11.19,
-        "fx_reserves": 21789.6,
-        "fx_reserves_prev": 21192.8,
-        "fx_reserves_date": "Mar 2026",
-        "kibor_6m": 11.96,
-        "kibid_6m": 11.71,
-        "kibor_date": "30-Apr-2026",
+        "fx_reserves": 21269.0,
+        "fx_reserves_prev": 21331.9,
+        "fx_reserves_date": "Apr 2026",
+        "kibor_6m": null,
+        "kibid_6m": null,
+        "kibor_date": null,
         "fwd_1m_bid": 1000.0,
-        "fwd_3m_bid": 280.0,
-        "fwd_6m_bid": 530.0,
+        "fwd_3m_bid": 440.0,
+        "fwd_6m_bid": 800.0,
         "tpa_regions": [
             {
                 "region": "North America",
@@ -91,12 +91,12 @@
                 "change": "14.3% up"
             }
         ],
-        "naphtha_price": 954.08,
-        "naphtha_change": 17.85,
-        "naphtha_change_pct": 1.91,
-        "zce_cotton_price": 16425.0,
-        "zce_cotton_change": 55.0,
-        "zce_cotton_change_pct": 0.34,
+        "naphtha_price": 890.87,
+        "naphtha_change": 24.57,
+        "naphtha_change_pct": 2.84,
+        "zce_cotton_price": 16470.0,
+        "zce_cotton_change": -285.0,
+        "zce_cotton_change_pct": -1.7,
         "yarn_20s_avg": 3326.6666666666665,
         "yarn_30s_avg": 3820.0,
         "yarn_40cf_avg": 4400.0,
@@ -106,12 +106,12 @@
             "Rs. 3250",
             "Rs. 3500"
         ],
-        "sindh_total_rain": 0.0,
+        "sindh_total_rain": 0.1,
         "punjab_total_rain": 0.1,
-        "sindh_max_rain_chance": 2,
-        "punjab_max_rain_chance": 10,
-        "sindh_max_temp": 50.6,
-        "punjab_max_temp": 50.0
+        "sindh_max_rain_chance": 6,
+        "punjab_max_rain_chance": 8,
+        "sindh_max_temp": 48.0,
+        "punjab_max_temp": 49.8
     },
     "triggered_alerts": [
         {
@@ -131,78 +131,92 @@
             "rule_id": "W1",
             "category": "Weather Risk",
             "rule_name": "Heat Stress Alert",
-            "condition": "Sindh max=50.6°C, Punjab max=50.0°C",
+            "condition": "Sindh max=48.0°C, Punjab max=49.8°C",
             "triggered": true,
             "severity": "CRITICAL",
             "recommendation": "EXTREME heat — cotton bolls burning; yield losses >20% likely. Source backup supply now.",
             "data_used": {
-                "sindh_temp": 50.6,
-                "punjab_temp": 50.0
+                "sindh_temp": 48.0,
+                "punjab_temp": 49.8
+            }
+        },
+        {
+            "rule_id": "A10",
+            "category": "Cotton Procurement",
+            "rule_name": "Spinning Margin Squeeze",
+            "condition": "Cotton up 2.1% (threshold: >1.5%)",
+            "triggered": true,
+            "severity": "HIGH",
+            "recommendation": "Spinners will stop selling -> Secure yarn stocks before supply dries up.",
+            "data_used": {
+                "cotton_change_pct": 2.08
+            }
+        },
+        {
+            "rule_id": "A2",
+            "category": "Cotton Procurement",
+            "rule_name": "Cotlook A Momentum",
+            "condition": "Latest=1.905, Prev=1.702, MoM=+11.9%",
+            "triggered": true,
+            "severity": "HIGH",
+            "recommendation": "Cotlook A surging — delay imports, buy local spot instead.",
+            "data_used": {
+                "latest": 1.905,
+                "prev_month": 1.702,
+                "mom_pct": 11.9
             }
         },
         {
             "rule_id": "B3",
             "category": "Yarn Strategy",
             "rule_name": "Polyester Oil Link",
-            "condition": "Brent=$110.16 (threshold: >$90)",
+            "condition": "Brent=$101.29 (threshold: >$90)",
             "triggered": true,
             "severity": "HIGH",
             "recommendation": "Buy PC yarn today; PSF tracks oil with 2-week lag.",
             "data_used": {
-                "brent": 110.16
+                "brent": 101.29
             }
         },
         {
             "rule_id": "B6",
             "category": "Yarn Strategy",
             "rule_name": "China Yarn Near 52-Week High",
-            "condition": "ZCE Yarn=22385, 52wk High=22840, at 98.0% of peak",
+            "condition": "ZCE Yarn=22415, 52wk High=22955, at 97.6% of peak",
             "triggered": true,
             "severity": "HIGH",
             "recommendation": "ZCE yarn near 52wk high — DO NOT buy China yarn now; await 5-10% correction.",
             "data_used": {
-                "price": 22385.0,
-                "52wk_high": 22840.0,
-                "pct_of_high": 98.0
+                "price": 22415.0,
+                "52wk_high": 22955.0,
+                "pct_of_high": 97.6
             }
         },
         {
             "rule_id": "C1",
             "category": "Chemicals & Dyes",
             "rule_name": "Reactive Dye Crude Link",
-            "condition": "Naphtha=$954/ton, change=+17.85",
+            "condition": "Naphtha=$891/ton, change=+24.57",
             "triggered": true,
             "severity": "HIGH",
             "recommendation": "Naphtha rising -> Reactive dyes will get expensive. Stock up.",
             "data_used": {
-                "naphtha_price": 954.08,
-                "naphtha_change": 17.85
-            }
-        },
-        {
-            "rule_id": "D7",
-            "category": "Currency & Forex",
-            "rule_name": "KIBOR Working Capital Cost",
-            "condition": "6M KIBOR=11.96% (CRITICAL>15%, HIGH>10%)",
-            "triggered": true,
-            "severity": "HIGH",
-            "recommendation": "KIBOR 11.96% — factor Rs.12.0/100 monthly carrying cost into pricing.",
-            "data_used": {
-                "kibor_6m": 11.96
+                "naphtha_price": 890.87,
+                "naphtha_change": 24.57
             }
         },
         {
             "rule_id": "W4",
             "category": "Weather Risk",
             "rule_name": "Sowing Season Heat Risk",
-            "condition": "Sowing season: True, Sindh=50.6°C, Punjab=50.0°C",
+            "condition": "Sowing season: True, Sindh=48.0°C, Punjab=49.8°C",
             "triggered": true,
             "severity": "HIGH",
             "recommendation": "Heat >42°C during sowing — poor germination; new crop yield at risk. Build 3-month safety stock.",
             "data_used": {
                 "sowing_season": true,
-                "sindh_temp": 50.6,
-                "punjab_temp": 50.0
+                "sindh_temp": 48.0,
+                "punjab_temp": 49.8
             }
         },
         {
@@ -355,20 +369,20 @@
             "rule_id": "D6",
             "category": "Currency & Forex",
             "rule_name": "GBP Export Invoicing Signal",
-            "condition": "GBP buy=Rs.378, Implied GBP/USD=1.355 (>1.28?)",
+            "condition": "GBP buy=Rs.379, Implied GBP/USD=1.361 (>1.28?)",
             "triggered": true,
             "severity": "MEDIUM",
             "recommendation": "GBP strong — invoice UK buyers in GBP for better realization.",
             "data_used": {
-                "gbp_buy_pkr": 377.69,
-                "implied_gbp_usd": 1.355
+                "gbp_buy_pkr": 379.19,
+                "implied_gbp_usd": 1.361
             }
         },
         {
             "rule_id": "X2",
             "category": "Composite Risk",
             "rule_name": "Procurement Buy Window Open",
-            "condition": "Cotton falling: True, Oil falling: False, PKR stable: True (2/3 active)",
+            "condition": "Cotton falling: False, Oil falling: True, PKR stable: True (2/3 active)",
             "triggered": true,
             "severity": "MEDIUM",
             "recommendation": "Good buying conditions — at least 2 inputs favorable. Accelerate procurement.",
@@ -382,80 +396,80 @@
             "rule_id": "A1",
             "category": "Cotton Procurement",
             "rule_name": "Rainy Harvest Rule",
-            "condition": "Sindh rain=0.0mm, max chance=2%",
+            "condition": "Sindh rain=0.1mm, max chance=6%",
             "triggered": false,
             "severity": "LOW",
             "recommendation": "No rain risk in Sindh. Normal procurement.",
             "data_used": {
-                "sindh_rain_mm": 0.0,
-                "max_chance": 2
+                "sindh_rain_mm": 0.1,
+                "max_chance": 6
             }
         },
         {
             "rule_id": "A3",
             "category": "Cotton Procurement",
             "rule_name": "Import Parity Switch",
-            "condition": "Local=$0.879/kg vs Import=$1.939/kg (Cotlook=1.702)",
+            "condition": "Local=$0.879/kg vs Import=$2.165/kg (Cotlook=1.905)",
             "triggered": false,
             "severity": "MEDIUM",
             "recommendation": "Local cotton competitive vs imports.",
             "data_used": {
                 "local_usd_kg": 0.879,
-                "import_parity_usd_kg": 1.939,
-                "cotlook_a": 1.702,
+                "import_parity_usd_kg": 2.165,
+                "cotlook_a": 1.905,
                 "pk_per_kg": 245.0,
-                "usd_pkr": 278.714
+                "usd_pkr": 278.625
             }
         },
         {
             "rule_id": "A4",
             "category": "Cotton Procurement",
             "rule_name": "China Future Link",
-            "condition": "ZCE Cotton change=+0.34% (threshold: >+3%)",
+            "condition": "ZCE Cotton change=-1.70% (threshold: >+3%)",
             "triggered": false,
             "severity": "LOW",
             "recommendation": "ZCE futures normal. No urgency.",
             "data_used": {
-                "zce_change_pct": 0.34,
-                "zce_price": 16425.0
+                "zce_change_pct": -1.7,
+                "zce_price": 16470.0
             }
         },
         {
             "rule_id": "A6",
             "category": "Cotton Procurement",
             "rule_name": "NY Futures Dip",
-            "condition": "ICE Cotton=$0.80/lb (threshold: <$0.80)",
+            "condition": "ICE Cotton=$0.85/lb (threshold: <$0.80)",
             "triggered": false,
             "severity": "LOW",
             "recommendation": "ICE Cotton above 80 cents.",
             "data_used": {
-                "ice_price": 0.8
+                "ice_price": 0.85
             }
         },
         {
             "rule_id": "A10",
             "category": "Cotton Procurement",
             "rule_name": "Spinning Margin Squeeze",
-            "condition": "Cotton up -1.8% (threshold: >1.5%)",
-            "triggered": false,
-            "severity": "LOW",
-            "recommendation": "Spinning margins stable.",
+            "condition": "Cotton up 2.1% (threshold: >1.5%)",
+            "triggered": true,
+            "severity": "HIGH",
+            "recommendation": "Spinners will stop selling -> Secure yarn stocks before supply dries up.",
             "data_used": {
-                "cotton_change_pct": -1.78
+                "cotton_change_pct": 2.08
             }
         },
         {
             "rule_id": "A2",
             "category": "Cotton Procurement",
             "rule_name": "Cotlook A Momentum",
-            "condition": "Latest=1.702, Prev=1.633, MoM=+4.2%",
-            "triggered": false,
-            "severity": "LOW",
-            "recommendation": "Cotlook A stable month-over-month.",
+            "condition": "Latest=1.905, Prev=1.702, MoM=+11.9%",
+            "triggered": true,
+            "severity": "HIGH",
+            "recommendation": "Cotlook A surging — delay imports, buy local spot instead.",
             "data_used": {
-                "latest": 1.702,
-                "prev_month": 1.633,
-                "mom_pct": 4.2
+                "latest": 1.905,
+                "prev_month": 1.702,
+                "mom_pct": 11.9
             }
         },
         {
@@ -503,12 +517,12 @@
             "rule_id": "B3",
             "category": "Yarn Strategy",
             "rule_name": "Polyester Oil Link",
-            "condition": "Brent=$110.16 (threshold: >$90)",
+            "condition": "Brent=$101.29 (threshold: >$90)",
             "triggered": true,
             "severity": "HIGH",
             "recommendation": "Buy PC yarn today; PSF tracks oil with 2-week lag.",
             "data_used": {
-                "brent": 110.16
+                "brent": 101.29
             }
         },
         {
@@ -541,13 +555,13 @@
             "rule_id": "B_CHINA",
             "category": "Yarn Strategy",
             "rule_name": "China Yarn Futures Alert",
-            "condition": "ZCE Yarn change=-0.47% (threshold: >|3%|)",
+            "condition": "ZCE Yarn change=-0.22% (threshold: >|3%|)",
             "triggered": false,
             "severity": "LOW",
             "recommendation": "ZCE yarn futures normal.",
             "data_used": {
-                "price": 22385.0,
-                "change_pct": -0.47
+                "price": 22415.0,
+                "change_pct": -0.22
             }
         },
         {
@@ -582,27 +596,27 @@
             "rule_id": "B6",
             "category": "Yarn Strategy",
             "rule_name": "China Yarn Near 52-Week High",
-            "condition": "ZCE Yarn=22385, 52wk High=22840, at 98.0% of peak",
+            "condition": "ZCE Yarn=22415, 52wk High=22955, at 97.6% of peak",
             "triggered": true,
             "severity": "HIGH",
             "recommendation": "ZCE yarn near 52wk high — DO NOT buy China yarn now; await 5-10% correction.",
             "data_used": {
-                "price": 22385.0,
-                "52wk_high": 22840.0,
-                "pct_of_high": 98.0
+                "price": 22415.0,
+                "52wk_high": 22955.0,
+                "pct_of_high": 97.6
             }
         },
         {
             "rule_id": "C1",
             "category": "Chemicals & Dyes",
             "rule_name": "Reactive Dye Crude Link",
-            "condition": "Naphtha=$954/ton, change=+17.85",
+            "condition": "Naphtha=$891/ton, change=+24.57",
             "triggered": true,
             "severity": "HIGH",
             "recommendation": "Naphtha rising -> Reactive dyes will get expensive. Stock up.",
             "data_used": {
-                "naphtha_price": 954.08,
-                "naphtha_change": 17.85
+                "naphtha_price": 890.87,
+                "naphtha_change": 24.57
             }
         },
         {
@@ -714,13 +728,13 @@
             "rule_id": "C2",
             "category": "Chemicals & Dyes",
             "rule_name": "Naphtha Surge/Crash Alert",
-            "condition": "Naphtha change=+1.9% (threshold: >|5%|)",
+            "condition": "Naphtha change=+2.8% (threshold: >|5%|)",
             "triggered": false,
             "severity": "LOW",
             "recommendation": "Naphtha stable. Dye cost outlook predictable.",
             "data_used": {
-                "naphtha_pct_change": 1.91,
-                "naphtha_price": 954.08
+                "naphtha_pct_change": 2.84,
+                "naphtha_price": 890.87
             }
         },
         {
@@ -740,25 +754,25 @@
             "rule_id": "D2",
             "category": "Currency & Forex",
             "rule_name": "Import Payment Timing",
-            "condition": "USD/PKR change=-0.04% (volatile >±0.5%)",
+            "condition": "USD/PKR change=+0.01% (volatile >±0.5%)",
             "triggered": false,
             "severity": "LOW",
-            "recommendation": "USD/PKR stable at 278.714.",
+            "recommendation": "USD/PKR stable at 278.625.",
             "data_used": {
-                "usd_pkr": 278.714,
-                "change_pct": -0.04
+                "usd_pkr": 278.625,
+                "change_pct": 0.01
             }
         },
         {
             "rule_id": "D3",
             "category": "Currency & Forex",
             "rule_name": "Euro Dollar Cross",
-            "condition": "EUR/USD=1.1712 (threshold: <1.05)",
+            "condition": "EUR/USD=1.1786 (threshold: <1.05)",
             "triggered": false,
             "severity": "LOW",
-            "recommendation": "EUR/USD at 1.1712. Euro healthy.",
+            "recommendation": "EUR/USD at 1.1786. Euro healthy.",
             "data_used": {
-                "eur_usd": 1.1712
+                "eur_usd": 1.1786
             }
         },
         {
@@ -777,94 +791,68 @@
             "rule_id": "D5",
             "category": "Currency & Forex",
             "rule_name": "RMB Payment Option",
-            "condition": "Direct CNY/PKR=40.81, Implied=38.44, saving=-6.2%",
+            "condition": "Direct CNY/PKR=40.97, Implied=38.43, saving=-6.6%",
             "triggered": false,
             "severity": "LOW",
             "recommendation": "CNY not advantageous currently.",
             "data_used": {
-                "cny_pkr": 40.81,
-                "implied": 38.44,
-                "saving_pct": -6.2
+                "cny_pkr": 40.97,
+                "implied": 38.43,
+                "saving_pct": -6.6
             }
         },
         {
             "rule_id": "D10",
             "category": "Currency & Forex",
             "rule_name": "Open Market Gap",
-            "condition": "Interbank=278.714, Open Sell=279.85, gap=1.14 (>5?)",
+            "condition": "Interbank=278.625, Open Sell=279.75, gap=1.12 (>5?)",
             "triggered": false,
             "severity": "LOW",
-            "recommendation": "Gap 1.14 PKR. Market aligned.",
+            "recommendation": "Gap 1.12 PKR. Market aligned.",
             "data_used": {
-                "interbank": 278.714,
-                "open_sell": 279.85,
-                "gap": 1.14
-            }
-        },
-        {
-            "rule_id": "D_KIBOR",
-            "category": "Currency & Forex",
-            "rule_name": "KIBOR Monitor",
-            "condition": "6M KIBOR=11.96%, KIBID=11.71% (30-Apr-2026)",
-            "triggered": false,
-            "severity": "INFO",
-            "recommendation": "KIBOR at 11.96%. Factor into carrying cost.",
-            "data_used": {
-                "kibor": 11.96,
-                "kibid": 11.71,
-                "date": "30-Apr-2026"
+                "interbank": 278.625,
+                "open_sell": 279.75,
+                "gap": 1.12
             }
         },
         {
             "rule_id": "D_FWD",
             "category": "Currency & Forex",
             "rule_name": "Forward Premium Monitor",
-            "condition": "1M FWD bid=1000.0 paise, annual=4305.5%",
+            "condition": "1M FWD bid=1000.0 paise, annual=4306.9%",
             "triggered": false,
             "severity": "INFO",
-            "recommendation": "Forward premium implies 4305.5% annualized devaluation.",
+            "recommendation": "Forward premium implies 4306.9% annualized devaluation.",
             "data_used": {
                 "fwd_1m": 1000.0,
-                "annual_pct": 4305.5
+                "annual_pct": 4306.9
             }
         },
         {
             "rule_id": "D6",
             "category": "Currency & Forex",
             "rule_name": "GBP Export Invoicing Signal",
-            "condition": "GBP buy=Rs.378, Implied GBP/USD=1.355 (>1.28?)",
+            "condition": "GBP buy=Rs.379, Implied GBP/USD=1.361 (>1.28?)",
             "triggered": true,
             "severity": "MEDIUM",
             "recommendation": "GBP strong — invoice UK buyers in GBP for better realization.",
             "data_used": {
-                "gbp_buy_pkr": 377.69,
-                "implied_gbp_usd": 1.355
-            }
-        },
-        {
-            "rule_id": "D7",
-            "category": "Currency & Forex",
-            "rule_name": "KIBOR Working Capital Cost",
-            "condition": "6M KIBOR=11.96% (CRITICAL>15%, HIGH>10%)",
-            "triggered": true,
-            "severity": "HIGH",
-            "recommendation": "KIBOR 11.96% — factor Rs.12.0/100 monthly carrying cost into pricing.",
-            "data_used": {
-                "kibor_6m": 11.96
+                "gbp_buy_pkr": 379.19,
+                "implied_gbp_usd": 1.361
             }
         },
         {
             "rule_id": "D8",
             "category": "Currency & Forex",
             "rule_name": "FX Reserves Declining",
-            "condition": "Reserves=$21790M, Δ=+597M (+2.8%)",
+            "condition": "Reserves=$21269M, Δ=-63M (-0.3%)",
             "triggered": false,
             "severity": "LOW",
             "recommendation": "Reserves stable/growing. PKR outlook balanced.",
             "data_used": {
-                "reserves": 21789.6,
-                "change_m": 597,
-                "change_pct": 2.8
+                "reserves": 21269.0,
+                "change_m": -63,
+                "change_pct": -0.3
             }
         },
         {
@@ -896,78 +884,78 @@
             "rule_id": "E8",
             "category": "Strategic Sourcing",
             "rule_name": "Recycle Trend (rPET)",
-            "condition": "Brent=$110.16 (<$75 = rPET premium shrinks)",
+            "condition": "Brent=$101.29 (<$75 = rPET premium shrinks)",
             "triggered": false,
             "severity": "LOW",
             "recommendation": "Oil moderate. rPET premium elevated.",
             "data_used": {
-                "brent": 110.16
+                "brent": 101.29
             }
         },
         {
             "rule_id": "E_RESERVES",
             "category": "Strategic Sourcing",
             "rule_name": "FX Reserves Watch",
-            "condition": "Reserves=$21790M (prev=$21193M, Δ=+597M)",
+            "condition": "Reserves=$21269M (prev=$21332M, Δ=-63M)",
             "triggered": false,
             "severity": "LOW",
-            "recommendation": "Reserves $21790M. Adequate.",
+            "recommendation": "Reserves $21269M. Adequate.",
             "data_used": {
-                "reserves": 21789.6,
-                "prev": 21192.8,
-                "change": 597,
-                "date": "Mar 2026"
+                "reserves": 21269.0,
+                "prev": 21331.9,
+                "change": -63,
+                "date": "Apr 2026"
             }
         },
         {
             "rule_id": "E5",
             "category": "Strategic Sourcing",
             "rule_name": "USD Hedging Window Open",
-            "condition": "USD/PKR daily=-0.04%, fwd annual=4305.5% (<8%?)",
+            "condition": "USD/PKR daily=+0.01%, fwd annual=4306.9% (<8%?)",
             "triggered": false,
             "severity": "LOW",
             "recommendation": "Hedging conditions not optimal. Monitor before covering.",
             "data_used": {
-                "usd_change": -0.04,
-                "fwd_annual": 4305.5
+                "usd_change": 0.01,
+                "fwd_annual": 4306.9
             }
         },
         {
             "rule_id": "E6",
             "category": "Strategic Sourcing",
             "rule_name": "Compound Input Cost Squeeze",
-            "condition": "Oil change=+0.9%, Cotton change=-1.8%",
+            "condition": "Oil change=-2.0%, Cotton change=+2.1%",
             "triggered": false,
             "severity": "LOW",
             "recommendation": "No simultaneous oil+cotton surge.",
             "data_used": {
-                "oil_change_pct": 0.88,
-                "cotton_change_pct": -1.78
+                "oil_change_pct": -2.01,
+                "cotton_change_pct": 2.08
             }
         },
         {
             "rule_id": "W1",
             "category": "Weather Risk",
             "rule_name": "Heat Stress Alert",
-            "condition": "Sindh max=50.6°C, Punjab max=50.0°C",
+            "condition": "Sindh max=48.0°C, Punjab max=49.8°C",
             "triggered": true,
             "severity": "CRITICAL",
             "recommendation": "EXTREME heat — cotton bolls burning; yield losses >20% likely. Source backup supply now.",
             "data_used": {
-                "sindh_temp": 50.6,
-                "punjab_temp": 50.0
+                "sindh_temp": 48.0,
+                "punjab_temp": 49.8
             }
         },
         {
             "rule_id": "W2",
             "category": "Weather Risk",
             "rule_name": "16-Day Rain Forecast",
-            "condition": "Sindh=0.0mm, Punjab=0.1mm",
+            "condition": "Sindh=0.1mm, Punjab=0.1mm",
             "triggered": false,
             "severity": "LOW",
             "recommendation": "Dry forecast. Favorable for cotton quality.",
             "data_used": {
-                "sindh_rain": 0.0,
+                "sindh_rain": 0.1,
                 "punjab_rain": 0.1
             }
         },
@@ -975,13 +963,13 @@
             "rule_id": "W3",
             "category": "Weather Risk",
             "rule_name": "Ginning Season Rain Risk",
-            "condition": "Ginning season: False, Sindh=0.0mm, Punjab=0.1mm",
+            "condition": "Ginning season: False, Sindh=0.1mm, Punjab=0.1mm",
             "triggered": false,
             "severity": "LOW",
             "recommendation": "Outside ginning season.",
             "data_used": {
                 "ginning_season": false,
-                "sindh_rain": 0.0,
+                "sindh_rain": 0.1,
                 "punjab_rain": 0.1
             }
         },
@@ -989,26 +977,26 @@
             "rule_id": "W4",
             "category": "Weather Risk",
             "rule_name": "Sowing Season Heat Risk",
-            "condition": "Sowing season: True, Sindh=50.6°C, Punjab=50.0°C",
+            "condition": "Sowing season: True, Sindh=48.0°C, Punjab=49.8°C",
             "triggered": true,
             "severity": "HIGH",
             "recommendation": "Heat >42°C during sowing — poor germination; new crop yield at risk. Build 3-month safety stock.",
             "data_used": {
                 "sowing_season": true,
-                "sindh_temp": 50.6,
-                "punjab_temp": 50.0
+                "sindh_temp": 48.0,
+                "punjab_temp": 49.8
             }
         },
         {
             "rule_id": "W5",
             "category": "Weather Risk",
             "rule_name": "Dual Belt Rain Alert",
-            "condition": "Sindh=0.0mm AND Punjab=0.1mm both hit",
+            "condition": "Sindh=0.1mm AND Punjab=0.1mm both hit",
             "triggered": false,
             "severity": "LOW",
             "recommendation": "Rain limited to one belt or none. Supply from unaffected region can compensate.",
             "data_used": {
-                "sindh_rain": 0.0,
+                "sindh_rain": 0.1,
                 "punjab_rain": 0.1
             }
         },
@@ -1016,13 +1004,13 @@
             "rule_id": "X1",
             "category": "Composite Risk",
             "rule_name": "Perfect Storm — All Inputs Rising",
-            "condition": "Cotton>+1%: False, Oil>+1%: False, PKR weaker>0.3%: False (0/3 active)",
+            "condition": "Cotton>+1%: True, Oil>+1%: False, PKR weaker>0.3%: False (1/3 active)",
             "triggered": false,
             "severity": "LOW",
             "recommendation": "No compound cost storm.",
             "data_used": {
-                "conditions_active": 0,
-                "cotton_up": false,
+                "conditions_active": 1,
+                "cotton_up": true,
                 "oil_up": false,
                 "pkr_weak": false
             }
@@ -1031,7 +1019,7 @@
             "rule_id": "X2",
             "category": "Composite Risk",
             "rule_name": "Procurement Buy Window Open",
-            "condition": "Cotton falling: True, Oil falling: False, PKR stable: True (2/3 active)",
+            "condition": "Cotton falling: False, Oil falling: True, PKR stable: True (2/3 active)",
             "triggered": true,
             "severity": "MEDIUM",
             "recommendation": "Good buying conditions — at least 2 inputs favorable. Accelerate procurement.",

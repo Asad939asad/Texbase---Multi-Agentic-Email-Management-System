@@ -7,7 +7,8 @@ from datetime import datetime
 
 # ── Configuration ────────────────────────────────────────────────────────
 # You can change this path later. The code will automatically create it.
-PERSONNEL_FOLDER = os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/personnel_data')
+ROOT_DIR = os.environ.get('WORKSPACE_ROOT', '.')
+PERSONNEL_FOLDER = os.path.join(ROOT_DIR, 'Database/personnel_data')
 DB_PATH = os.path.join(PERSONNEL_FOLDER, 'personnelDetails.db')
 
 # Ensure the personnel folder exists

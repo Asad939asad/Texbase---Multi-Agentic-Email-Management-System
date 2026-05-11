@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ElectricBorder from '../component/ElectricBorder';
+import QuotationFeedbackWidget from '../component/QuotationFeedbackWidget';
+
+
 
 interface PredictionRow {
   row_index?: number;
@@ -302,6 +305,7 @@ export default function POQuotationPage() {
 
               {/* Prediction Table */}
               {(predictions.length > 0 || isPredicting) && (
+                <>
                 <ElectricBorder>
                   <div style={{ background: 'rgba(15,23,42,.85)', borderRadius: 16, padding: 24 }}>
                     <h3 style={{ margin: '0 0 20px', color: '#f8fafc', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -352,7 +356,17 @@ export default function POQuotationPage() {
                     </div>
                   </div>
                 </ElectricBorder>
+                {predictions.length > 0 && (
+                  <QuotationFeedbackWidget 
+                    userInput={`PO: ${selectedTable || 'Unknown'} | Items: ${predictions.length} | File: ${selectedTable || 'Manual'}`}
+                    predictedPrice={parseFloat(predictions[0]?.predicted_price_usd?.toString() || '0')}
+                    itemDescription={predictions[0]?.description || 'Multiple Items'}
+                    responseText={JSON.stringify(predictions)} 
+                  />
+                )}
+                </>
               )}
+
             </div>
           )}
           

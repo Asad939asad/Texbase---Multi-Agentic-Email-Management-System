@@ -6,7 +6,8 @@ import os
 import re
 # --- CONFIGURATION ---
 LLM_URL = "http://localhost:8003/generate"
-DB_PATH = os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/personnel_data/ResumeProcessed.db')))
+ROOT_DIR = os.environ.get('WORKSPACE_ROOT', '.')
+DB_PATH = os.path.join(ROOT_DIR, 'Database/personnel_data/ResumeProcessed.db')
 
 os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
 
@@ -123,8 +124,9 @@ def process_resume(pdf_path, user_email):
 
 # if __name__ == "__main__":
 #     init_db()
-#     # Test path
-#     path = os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/personnel_data/asadchairman735_at_gmail.com_Asad CV (1).pdf")
+#     ROOT_DIR = os.environ.get('WORKSPACE_ROOT', '.')
+#     load_dotenv(dotenv_path=os.path.join(ROOT_DIR, 'backend/.env'))
+#     path = os.path.join(ROOT_DIR, 'Database/personnel_data/asadchairman735_at_gmail.com_Asad CV (1).pdf')
 #     email = "asadirfan358@gmail.com"
 #     if os.path.exists(path):
 #         process_resume(path, email)

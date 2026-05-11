@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import EmailDraftFeedbackWidget from '../component/EmailDraftFeedbackWidget';
+
+
 
 interface EmailEditorProps {
     id: string;
@@ -15,8 +18,17 @@ export default function EmailEditor({ id, onLogout }: EmailEditorProps) {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [aiLoading, setAiLoading] = useState(false);
+    const [lastUserMessage, setLastUserMessage] = useState('');
+    const [aiDraft, setAiDraft] = useState('');
     const [feedback, setFeedback] = useState('');
     const [error, setError] = useState<string | null>(null);
+    const [autoSaved, setAutoSaved] = useState(false);
+    
+    // Strategic Context State (New: based on MLOps report)
+    const [senderRole, setSenderRole] = useState<'Marketing Manager' | 'Executive' | 'Expert'>('Marketing Manager');
+    const [strategicFocus, setStrategicFocus] = useState<string[]>(['Concise', 'Authority']);
+    const lastSavedContent = useRef<string>('');
+    const lastSavedSubject = useRef<string>('');
 
     // Link Modal State
     const [showLinkModal, setShowLinkModal] = useState(false);
@@ -62,8 +74,12 @@ export default function EmailEditor({ id, onLogout }: EmailEditorProps) {
                 setCompany(data.company_email);
                 const payload = typeof data.body_json === 'string' ? JSON.parse(data.body_json) : data.body_json;
                 const initialContent = payload.body?.generated_content || '';
-                setSubject(payload.body?.subject || data.generated_subject || '');
+                const initialSubject = payload.body?.subject || data.generated_subject || '';
+                setSubject(initialSubject);
+                setAiDraft(initialContent); // Populate aiDraft on load
                 if (editorRef.current) editorRef.current.innerHTML = formatForEditor(initialContent);
+                lastSavedContent.current = formatForEditor(initialContent);
+                lastSavedSubject.current = initialSubject;
                 setLoading(false);
             })
             .catch(err => {
@@ -72,10 +88,15 @@ export default function EmailEditor({ id, onLogout }: EmailEditorProps) {
             });
     }, [id]);
 
-    const handleSave = async () => {
-        const content = editorRef.current?.innerHTML || '';
-        setSaving(true);
-        // Route save to correct endpoint based on type
+    const performSave = async (isSilent = false, overrideContent?: string): Promise<boolean> => {
+        const content = overrideContent !== undefined ? overrideContent : (editorRef.current?.innerHTML || '');
+        
+        // Prevent 400 Bad Request if content is somehow empty
+        if (!content) return false;
+
+        if (isSilent && content === lastSavedContent.current && subject === lastSavedSubject.current) return true;
+
+        if (!isSilent) setSaving(true);
         const saveUrl = emailType === 'followup'
             ? `http://localhost:8000/api/review/followup/${id}/save`
             : `http://localhost:8000/api/tracking/${id}/save`;
@@ -86,16 +107,47 @@ export default function EmailEditor({ id, onLogout }: EmailEditorProps) {
                 body: JSON.stringify({ new_content: content, subject })
             });
             if (!res.ok) throw new Error('Save failed');
-            alert('Saved successfully!');
+            
+            lastSavedContent.current = content;
+            lastSavedSubject.current = subject;
+            
+            if (isSilent) {
+                setAutoSaved(true);
+                setTimeout(() => setAutoSaved(false), 3000);
+            } else if (!overrideContent) {
+                // Only alert on manual save, not silent or chained saves
+                alert('Saved successfully!');
+            }
+            return true;
         } catch (err: any) {
-            alert(`Error: ${err.message}`);
+            if (!isSilent) alert(`Error: ${err.message}`);
+            return false;
         } finally {
-            setSaving(false);
+            if (!isSilent) setSaving(false);
         }
     };
 
+    const handleSave = () => performSave(false);
+
+    const handleBack = async () => {
+        // Trigger a final save before leaving
+        await performSave(true);
+        window.history.back();
+    };
+
+    // Auto-save effect: every 10 seconds check for changes
+    useEffect(() => {
+        const timer = setInterval(() => {
+            if (!loading && !aiLoading && !saving) {
+                performSave(true);
+            }
+        }, 10000);
+        return () => clearInterval(timer);
+    }, [id, loading, aiLoading, saving, subject, emailType]);
+
     const handleApprove = async () => {
-        await handleSave();
+        const saved = await performSave(true);
+        if (!saved) return alert('Cannot approve: failed to save current draft.');
         setSaving(true);
         // Route approve to correct endpoint based on type
         const approveUrl = emailType === 'followup'
@@ -163,23 +215,28 @@ export default function EmailEditor({ id, onLogout }: EmailEditorProps) {
     const handleAiRewrite = async () => {
         if (!feedback.trim()) return alert('Please enter feedback.');
         setAiLoading(true);
+        setLastUserMessage(feedback);
         try {
+            // Inject Strategic Context into the feedback to guide the AI better
+            const enrichedFeedback = `[ROLE: ${senderRole}] [FOCUS: ${strategicFocus.join(', ')}] ${feedback}`;
+            
             const res = await fetch(`http://localhost:8000/api/tracking/${id}/ai-edit`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ feedback })
+                body: JSON.stringify({ feedback: enrichedFeedback })
             });
             const data = await res.json();
             if (!data.ok) throw new Error(data.error || 'AI rewrite failed');
-
-            const recRes = await fetch(`http://localhost:8000/api/tracking/${id}`);
-            const recData = await recRes.json();
-            const payload = typeof recData.body_json === 'string' ? JSON.parse(recData.body_json) : recData.body_json;
-
+            
             if (editorRef.current) {
-                editorRef.current.innerHTML = formatForEditor(payload.body?.generated_content || '');
+                const newHtml = formatForEditor(data.new_content || '');
+                editorRef.current.innerHTML = newHtml;
+                setAiDraft(data.new_content);
+                if (data.new_subject) setSubject(data.new_subject);
+                
+                // Trigger an immediate silent save after AI generation with the fresh content
+                performSave(true, newHtml);
             }
-            setSubject(payload.body?.subject || recData.generated_subject || '');
             setFeedback('');
         } catch (err: any) {
             alert(`Error: ${err.message}`);
@@ -200,7 +257,7 @@ export default function EmailEditor({ id, onLogout }: EmailEditorProps) {
             {/* Nav */}
             <nav className="relative z-20 w-full px-6 py-4 border-b border-zinc-800/50 bg-zinc-950/50 backdrop-blur-xl flex justify-between items-center">
                 <div className="flex items-center gap-4">
-                    <button onClick={() => window.history.back()} className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-600 transition-colors">
+                    <button onClick={handleBack} className="p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-600 transition-colors">
                         <svg className="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
                     </button>
                     <span className="font-black tracking-tighter text-xl">EDITOR<span className="text-blue-500">.</span></span>
@@ -215,7 +272,14 @@ export default function EmailEditor({ id, onLogout }: EmailEditorProps) {
                     {/* Top Info Bar */}
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-zinc-900/50 border border-zinc-800/50 rounded-2xl">
                         <div>
-                            <h2 className="text-xl font-bold text-white uppercase tracking-tight">{company || 'New Email'}</h2>
+                            <div className="flex items-center gap-3">
+                                <h2 className="text-xl font-bold text-white uppercase tracking-tight">{company || 'New Email'}</h2>
+                                {autoSaved && (
+                                    <span className="text-[10px] font-bold text-emerald-500 animate-pulse bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                                        AUTO-SAVED
+                                    </span>
+                                )}
+                            </div>
                             <div className="flex items-center gap-3 mt-1">
                                 <p className="text-sm text-zinc-500 font-medium">{role}</p>
                                 <span className={`text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-md border
@@ -248,6 +312,38 @@ export default function EmailEditor({ id, onLogout }: EmailEditorProps) {
 
                         {/* Left Column: Editor (8/12) */}
                         <div className="lg:col-span-8 flex flex-col bg-zinc-900/30 border border-zinc-800/50 rounded-2xl overflow-hidden shadow-2xl">
+
+                            {/* Strategic Context Controls (New) */}
+                            <div className="flex flex-wrap items-center gap-4 p-4 bg-zinc-900/50 border-b border-zinc-800/50">
+                                <div className="flex items-center gap-2 mr-2">
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Sender Role:</span>
+                                    <div className="flex bg-black/40 rounded-lg p-1 border border-zinc-800">
+                                        {['Marketing Manager', 'Executive', 'Expert'].map((r) => (
+                                            <button
+                                                key={r}
+                                                onClick={() => setSenderRole(r as any)}
+                                                className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all ${senderRole === r ? 'bg-blue-600 text-white shadow-lg' : 'text-zinc-500 hover:text-zinc-300'}`}
+                                            >
+                                                {r}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-zinc-500">AI Focus:</span>
+                                    <div className="flex gap-2">
+                                        {['Concise', 'Authority', 'Value-First', 'Warm'].map((tag) => (
+                                            <button
+                                                key={tag}
+                                                onClick={() => setStrategicFocus(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag])}
+                                                className={`px-2.5 py-1 text-[10px] font-bold rounded-full border transition-all ${strategicFocus.includes(tag) ? 'bg-emerald-500/10 border-emerald-500 text-emerald-400' : 'border-zinc-800 text-zinc-500 hover:border-zinc-700'}`}
+                                            >
+                                                {tag}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
 
                             {/* Subject Editor */}
                             <div className="flex items-center gap-3 p-4 bg-zinc-900/80 border-b border-zinc-800/50">
@@ -311,6 +407,12 @@ export default function EmailEditor({ id, onLogout }: EmailEditorProps) {
                                 >
                                     {aiLoading ? 'PROCESSING...' : 'REWRITE WITH AI'}
                                 </button>
+                                {!aiLoading && (
+                                    <EmailDraftFeedbackWidget 
+                                        userInput={lastUserMessage || 'Initial Generation'}
+                                        agentResponse={aiDraft || (editorRef.current?.innerText || '')}
+                                    />
+                                )}
                             </div>
 
                             {/* Tips Box */}

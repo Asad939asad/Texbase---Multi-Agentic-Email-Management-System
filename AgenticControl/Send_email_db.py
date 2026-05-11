@@ -29,14 +29,15 @@ def approve_and_move_email(email_id):
                 status           TEXT DEFAULT 'ready to be sent',
                 company_name     TEXT,
                 generated_subject TEXT,
-                company_email    TEXT
+                company_email    TEXT,
+                Unique_application_id TEXT
             )
         ''')
 
         # 2. Fetch the email from the review database
         cursor_review.execute("""
             SELECT id, body_json, timestamp, followup_date, status,
-                   company_name, generated_subject, company_email
+                   company_name, generated_subject, company_email, Unique_application_id
             FROM tracking
             WHERE id = ?
         """, (email_id,))
@@ -49,7 +50,7 @@ def approve_and_move_email(email_id):
 
         # Unpack the row data
         (row_id, body_json, timestamp, followup_date, current_status,
-         company_name, generated_subject, company_email) = row
+         company_name, generated_subject, company_email, unique_app_id) = row
         # 3. Process attachments, links, and clean the body_json payload
         def process_email_attachments(row_id, body_str):
             output_dir = os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), f'metadatatracking/{row_id}')
@@ -115,10 +116,10 @@ def approve_and_move_email(email_id):
         cursor_outbox.execute("""
             INSERT INTO ready_emails
             (id, body_json, timestamp, followup_date, status,
-             company_name, generated_subject, company_email)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+             company_name, generated_subject, company_email, Unique_application_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (row_id, cleaned_body_json, timestamp, followup_date, new_status,
-               company_name, generated_subject, company_email))
+               company_name, generated_subject, company_email, unique_app_id))
 
         # 6. Delete the entry from the original database
         cursor_review.execute("DELETE FROM tracking WHERE id = ?", (email_id,))

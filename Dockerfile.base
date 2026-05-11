@@ -1,0 +1,47 @@
+# ── Dockerfile.base ──────────────────────────────────────────────────────────
+# This image contains all the heavy, slow-to-download dependencies.
+# Build this once, then your app builds will be near-instant.
+
+FROM node:20
+
+# 1. System Dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 \
+    python3-pip \
+    python3-venv \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# 2. Heavy Python Dependencies
+# We install the big ones directly so they stay in this base layer
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+RUN pip install --no-cache-dir \
+    pandas \
+    openpyxl \
+    playwright \
+    azure-ai-inference \
+    azure-core \
+    google-api-python-client \
+    google-auth-oauthlib \
+    google-auth-httplib2 \
+    google-genai \
+    langchain \
+    langchain-google-genai \
+    python-dotenv \
+    langgraph \
+    beautifulsoup4 \
+    fpdf \
+    pydantic
+
+# 3. Playwright Browsers
+RUN playwright install --with-deps chromium
+
+# 4. Node Dependencies (Base)
+# We copy package.json just to get the node_modules layer started
+COPY backend/package*.json ./backend/
+RUN cd backend && npm install && npm rebuild sqlite3 --build-from-source

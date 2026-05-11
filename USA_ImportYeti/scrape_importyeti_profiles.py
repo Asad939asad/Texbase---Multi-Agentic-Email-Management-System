@@ -6,7 +6,7 @@ import time
 import os
 
 # --- CONFIGURATION ---
-DB_PATH = '/Volumes/ssd2/TEXBASE/USA_ImportYeti/importyeti_data.db'))
+DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'importyeti_data.db')
 TARGET_URL = "https://www.importyeti.com/company/world-textile-sourcing"  # <--- LINK TO SCRAP
 # ---------------------
 

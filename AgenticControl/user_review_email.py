@@ -8,11 +8,12 @@ from azure.ai.inference.models import SystemMessage as AzureSystemMessage, UserM
 from azure.core.credentials import AzureKeyCredential
 
 # --- SETUP & CONSTANTS ---
-load_dotenv(dotenv_path=os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'backend/.env'))))
+ROOT_DIR = os.environ.get('WORKSPACE_ROOT', '.')
+load_dotenv(dotenv_path=os.path.join(ROOT_DIR, 'backend/.env'))
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-DB_TRACKING  = os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/EmailsUnderReview/emailsUnderReview.db')))
+DB_TRACKING  = os.path.join(ROOT_DIR, 'Database/EmailsUnderReview/emailsUnderReview.db')
 
 # Sender identity (same as EmailGenerator.py)
 SENDER = {
@@ -41,14 +42,17 @@ def enhance_feedback_with_groq(raw_feedback: str, company_name: str) -> str:
 
     prompt = f"""You are an expert B2B sales email coach specialising in textile/apparel manufacturing outreach.
 
-A sales manager at Arooj Enterprises (a Pakistan-based garment manufacturer) has written a cold email
-to {company_name}, a US apparel import buyer. The user wants to revise it based on this feedback:
-
-User feedback: "{raw_feedback}"
-
-Transform this into clear, detailed, professional rewriting instructions for an AI copywriter.
-Focus on tone, structure, persuasion, and textile industry context.
-Do NOT write the email itself. Output ONLY the detailed revision instructions."""
+    A Senior Marketing Manager at Arooj Enterprises (a Pakistan-based garment manufacturer) has written a cold email
+    to {company_name}, a US apparel import buyer. The user wants to revise it based on this feedback:
+    
+    User feedback: "{raw_feedback}"
+    
+    Note: The feedback may contain context tags like [ROLE: Senior Marketing Manager] or [FOCUS: Concise, Professional]. 
+    Strictly respect these strategic constraints in your instructions.
+    
+    Transform this into clear, detailed, professional rewriting instructions for an AI copywriter.
+    Focus on tone, structure, persuasion, and textile industry context.
+    Do NOT write the email itself. Output ONLY the detailed revision instructions."""
 
     response = client.chat.completions.create(
         messages=[
@@ -116,8 +120,8 @@ Subject: {orig_subject}
 
 CRITICAL OUTPUT REQUIREMENTS:
 - Rewrite the email applying ALL revision instructions above.
-- Keep all specific references to the recipient's HS codes, shipment volume, or executives
-  (these are personalisation hooks — never remove them).
+- Adopt a direct, professional Marketing Manager tone. No fluff. No generic openers.
+- Keep all specific references to the recipient's HS codes, shipment volume, or executives.
 - Sign off as: {SENDER['name']} | {SENDER['title']} | {SENDER['company']} | {SENDER['website']}
 - Output ONLY the revised email ("Subject: ..." first line, then blank line, then body).
 - Do NOT use markdown code blocks.
@@ -131,7 +135,7 @@ CRITICAL OUTPUT REQUIREMENTS:
         temperature=0.7,
         top_p=1.0,
         max_tokens=1200,
-        model="mistral-ai/mistral-medium-2505"
+        model="meta/Llama-3.3-70B-Instruct"
     )
     return response.choices[0].message.content.strip()
 
@@ -246,7 +250,7 @@ def update_single_email(db_id: int, feedback: str):
         print("─" * 60)
         print(new_email)
         print("─" * 60)
-        return True
+        return new_body_text, new_subject
 
 
 # ─────────────────────────────────────────────────────────────────────────────

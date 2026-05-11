@@ -83,3 +83,11 @@ frontend/build/
 backend/database.json
 AgenticControl/RoughWork.ipynb
 AgenticControl/*.ipynb
+
+# ── Artifacts & Temp Files ──────────────────────────────────────────────────
+screenshots/
+screenshots.zip
+frontend\ copy/
+scratch/
+*.log
+feedback_log.json

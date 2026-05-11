@@ -2,6 +2,7 @@ import express from 'express';
 import type { Request, Response } from 'express';
 import { google } from 'googleapis';
 import fs from 'fs';
+import 'dotenv/config';
 import path from 'path';
 import { spawnSync, spawn } from 'child_process';
 import multer from 'multer';
@@ -96,6 +97,22 @@ function readSession() {
 }
 
 // ── Python bridge helpers ─────────────────────────────────────────────────────
+function getPythonSpawnOptions(extraEnv: Record<string, string> = {}) {
+    return {
+        cwd: WORKSPACE_ROOT,
+        env: {
+            ...process.env,
+            WORKSPACE_ROOT: WORKSPACE_ROOT,
+            PYTHONPATH: [
+                path.join(WORKSPACE_ROOT, 'src_2', 'ColdEmail'),
+                path.join(WORKSPACE_ROOT, 'AgenticControl'),
+                path.join(WORKSPACE_ROOT, 'USA_ImportYeti'),
+                process.env.PYTHONPATH || ''
+            ].filter(Boolean).join(':'),
+            ...extraEnv
+        }
+    };
+}
 function checkUserExists(email: string): boolean {
     const result = spawnSync(PYTHON_EXE, [CHECK_USER_CLI, email], { encoding: 'utf-8' });
     if (result.error) { console.error('Python check error:', result.error); return false; }
@@ -111,7 +128,7 @@ function checkUserExists(email: string): boolean {
 function saveUserProfileViaPython(payload: object): Promise<{ ok: boolean; error?: string }> {
     return new Promise((resolve) => {
         console.log(`[ProfileSave] Spawning ${PYTHON_EXE} save_user_cli.py (async)...`);
-        const child = spawn(PYTHON_EXE, [SAVE_USER_CLI]);
+        const child = spawn(PYTHON_EXE, [SAVE_USER_CLI], getPythonSpawnOptions());
 
         let stdout = '';
         let stderr = '';
@@ -173,7 +190,7 @@ function saveUserProfileViaPython(payload: object): Promise<{ ok: boolean; error
 // Spawns a python process with JSON via stdin, returns parsed JSON from stdout.
 export async function runPythonCli(scriptPath: string, payload: any, tag = 'PyCLI'): Promise<any> {
     return new Promise((resolve) => {
-        const child = spawn(PYTHON_EXE, [scriptPath]);
+        const child = spawn(PYTHON_EXE, [scriptPath], getPythonSpawnOptions());
         let stdout = '';
         let stderr = '';
         let resolved = false;
@@ -273,7 +290,7 @@ app.post('/api/upload-excel',
             fs.writeFileSync(tempFilePath, file.buffer);
             console.log(`[ExcelUpload] Saved file to ${tempFilePath}, spawning process_excel_cli.py...`);
 
-            const child = spawn(PYTHON_EXE, [PROCESS_EXCEL_CLI, tempFilePath]);
+            const child = spawn(PYTHON_EXE, [PROCESS_EXCEL_CLI, tempFilePath], getPythonSpawnOptions());
 
             child.stdout.on('data', (d: Buffer) => {
                 console.log(`[ExcelUpload|py] ${d.toString().trim()}`);
@@ -321,14 +338,12 @@ app.post('/api/pipeline/run-excel', (req: Request, res: Response) => {
     pipelineStatus.lastExitCode = null;
 
     try {
-        const child = spawn(PYTHON_EXE, [EXCEL_PROCESSOR_CLI], { 
-            cwd: path.dirname(EXCEL_PROCESSOR_CLI)
-        });
+        const child = spawn(PYTHON_EXE, [EXCEL_PROCESSOR_CLI], getPythonSpawnOptions());
 
         child.stdout.on('data', (d: Buffer) => {
             console.log(`[ExcelProcessor|out] ${d.toString().trim()}`);
         });
-        
+
         child.stderr.on('data', (d: Buffer) => {
             console.error(`[ExcelProcessor|err] ${d.toString().trim()}`);
         });
@@ -959,16 +974,16 @@ app.post('/api/po/process', poUpload.single('file'), (req: Request, res: Respons
     };
 
     try {
-        const child = spawn(PYTHON_EXE, [PO_PIPELINE_CLI], { cwd: PO_CWD });
+        const child = spawn(PYTHON_EXE, [PO_PIPELINE_CLI], getPythonSpawnOptions({ PO_CWD: PO_CWD }));
         let stdout = '';
         let stderr = '';
 
         child.stdin.write(JSON.stringify({ file_path: req.file.path }));
         child.stdin.end();
 
-        child.stdout.on('data', (d: Buffer) => { 
+        child.stdout.on('data', (d: Buffer) => {
             const msg = d.toString();
-            stdout += msg; 
+            stdout += msg;
             addPOLog(msg);
         });
 
@@ -1097,7 +1112,7 @@ app.post('/api/po/predict', async (req: Request, res: Response) => {
     try {
         console.log(`[PO_Predict] Running predictor for table: ${table_name}`);
         // Run the predictor script
-        const child = spawn(PYTHON_EXE, [PO_PREDICTOR_CLI, '--table', table_name], { cwd: PO_CWD });
+        const child = spawn(PYTHON_EXE, [PO_PREDICTOR_CLI, '--table', table_name], getPythonSpawnOptions({ PO_CWD: PO_CWD }));
 
         let stdout = '';
         let stderr = '';
@@ -1251,6 +1266,7 @@ app.post('/api/followups/generate/:id', async (req: Request, res: Response) => {
     }
 });
 
+
 app.listen(PORT, () => {
     console.log(`🚀 Backend Auth Server running on http://localhost:${PORT}`);
 
@@ -1264,7 +1280,7 @@ app.listen(PORT, () => {
     // ── Background Agent Runner ──────────────────────────────────────────────
     function runReviewAgent() {
         console.log(`⏱️ Running background task: ${REVIEW_AGENT_CLI}`);
-        const agentProcess = spawn(PYTHON_EXE, [REVIEW_AGENT_CLI]);
+        const agentProcess = spawn(PYTHON_EXE, [REVIEW_AGENT_CLI], getPythonSpawnOptions());
 
         agentProcess.stdout.on('data', (data) => {
             console.log(`[ReviewAgent] ${data.toString().trim()}`);
@@ -1279,11 +1295,47 @@ app.listen(PORT, () => {
         });
     }
 
+    function runOutreachAgent() {
+        console.log(`⏱️ Starting background Outreach Agent: ${path.join(PYTHON_DIR, 'OutreachAgent.py')}`);
+        // We use spawn (not spawnSync) so it runs as a long-lived process
+        const outreachAgent = spawn(PYTHON_EXE, [path.join(PYTHON_DIR, 'OutreachAgent.py')], getPythonSpawnOptions());
+
+        outreachAgent.stdout.on('data', (data) => {
+            console.log(`[OutreachAgent] ${data.toString().trim()}`);
+        });
+
+        outreachAgent.stderr.on('data', (data) => {
+            console.error(`[OutreachAgent Error] ${data.toString().trim()}`);
+        });
+
+        outreachAgent.on('close', (code) => {
+            console.log(`[OutreachAgent] Process closed with code ${code}. Restarting in 60s...`);
+            setTimeout(runOutreachAgent, 60000);
+        });
+    }
+
     // Run immediately once on startup
     runReviewAgent();
+    runOutreachAgent();
 
-    // Schedule to run every 20 minutes
+    // Schedule Review Agent (Outreach Agent is self-looping)
     setInterval(runReviewAgent, 1 * 60 * 1000);
+
+    // ── Market Intelligence Scheduler ────────────────────────────────────────
+    function runMarketIntelPipeline() {
+        if (pipelineState.status === 'running') return;
+        console.log('⏰ [SystemClock] Triggering scheduled Market Intelligence run...');
+        
+        // Use global fetch (available in Node 18+)
+        fetch(`http://localhost:${PORT}/api/stats/run-pipeline`, { method: 'POST' }).catch(() => {});
+    }
+
+    // Check every minute if it's time to run
+    setInterval(() => {
+        if (Date.now() >= nextMarketIntelRunAt) {
+            runMarketIntelPipeline();
+        }
+    }, 60 * 1000);
 });
 
 // ── ROUTE: Rewrite Email via AI ───────────────────────────────────────────────
@@ -1347,6 +1399,42 @@ let poPipelineState: { status: string; phase: string; startedAt: string | null; 
     status: 'idle', phase: '', startedAt: null, log: [],
 };
 
+// Market Intel System Clock
+const INTEL_CLOCK_FILE = path.join(WORKSPACE_ROOT, 'Database/next_intel_run.json');
+let nextMarketIntelRunAt = Date.now() + 60 * 60 * 1000;
+
+function loadIntelClock() {
+    try {
+        if (fs.existsSync(INTEL_CLOCK_FILE)) {
+            const raw = JSON.parse(fs.readFileSync(INTEL_CLOCK_FILE, 'utf-8'));
+            if (raw.nextRunAt > Date.now()) {
+                nextMarketIntelRunAt = raw.nextRunAt;
+                console.log(`⏰ [SystemClock] Restored schedule: Next run at ${new Date(nextMarketIntelRunAt).toLocaleTimeString()}`);
+            }
+        }
+    } catch { }
+}
+
+function saveIntelClock(time: number) {
+    try {
+        fs.writeFileSync(INTEL_CLOCK_FILE, JSON.stringify({ nextRunAt: time }));
+    } catch { }
+}
+
+loadIntelClock();
+
+app.post('/api/market/chat', async (req: Request, res: Response) => {
+    const { question } = req.body;
+    if (!question) return res.status(400).json({ error: 'Missing question' });
+    try {
+        const RAG_SCRIPT = path.join(WORKSPACE_ROOT, 'AgenticControl/MarketRAG.py');
+        const out = await runPythonCli(RAG_SCRIPT, [question], 'MarketChat');
+        res.json({ answer: out });
+    } catch (e) {
+        res.status(500).json({ error: String(e) });
+    }
+});
+
 function addPOLog(msg: string) {
     const clean = msg.trim();
     if (clean) {
@@ -1375,6 +1463,11 @@ app.get('/api/stats/pipeline-status', (_req: Request, res: Response) => {
     res.json(pipelineState);
 });
 
+// GET /api/stats/next-run
+app.get('/api/stats/next-run', (_req: Request, res: Response) => {
+    res.json({ nextRunAt: nextMarketIntelRunAt });
+});
+
 // POST /api/stats/run-pipeline — fires update_all_stats.py, then Stats.py + Weather_LLM_Strategy.py in parallel
 app.post('/api/stats/run-pipeline', (_req: Request, res: Response) => {
     if (pipelineState.status === 'running') {
@@ -1383,6 +1476,8 @@ app.post('/api/stats/run-pipeline', (_req: Request, res: Response) => {
     }
 
     pipelineState = { status: 'running', phase: 'scrapers', startedAt: new Date().toISOString(), log: [] };
+    nextMarketIntelRunAt = Date.now() + 60 * 60 * 1000; // Reset clock on manual trigger
+    saveIntelClock(nextMarketIntelRunAt);
     res.json({ ok: true, message: 'Pipeline started', state: pipelineState });
 
     const addLog = (msg: string) => {
@@ -1394,7 +1489,7 @@ app.post('/api/stats/run-pipeline', (_req: Request, res: Response) => {
     addLog('Phase 1: Running update_all_stats.py (scrapers)…');
 
     // ── Phase 1: update_all_stats.py ──────────────────────────────────────────
-    const scrapers = spawn(PYTHON_EXE, [UPDATE_ALL]);
+    const scrapers = spawn(PYTHON_EXE, [UPDATE_ALL], getPythonSpawnOptions());
     scrapers.stdout.on('data', (d: Buffer) => addLog(d.toString().trim()));
     scrapers.stderr.on('data', (d: Buffer) => addLog(`[stderr] ${d.toString().trim()}`));
     scrapers.on('close', (code: number | null) => {
@@ -1411,15 +1506,32 @@ app.post('/api/stats/run-pipeline', (_req: Request, res: Response) => {
         const check = () => { if (++done === 2) { pipelineState.status = 'done'; addLog('✅ All done.'); } };
 
         addLog('Phase 2: Generating final Market Intelligence reports…');
-        const statsProc = spawn(PYTHON_EXE, [STATS_PY]);
+        const statsProc = spawn(PYTHON_EXE, [STATS_PY], getPythonSpawnOptions());
         statsProc.stdout.on('data', (d: Buffer) => addLog(`[Stats] ${d.toString().trim()}`));
         statsProc.stderr.on('data', (d: Buffer) => addLog(`[Stats|err] ${d.toString().trim()}`));
         statsProc.on('close', (c: number | null) => { addLog(`Stats.py done (code ${c})`); check(); });
 
-        const weatherProc = spawn(PYTHON_EXE, [WEATHER_PY]);
+        const weatherProc = spawn(PYTHON_EXE, [WEATHER_PY], getPythonSpawnOptions());
         weatherProc.stdout.on('data', (d: Buffer) => addLog(`[Weather] ${d.toString().trim()}`));
         weatherProc.stderr.on('data', (d: Buffer) => addLog(`[Weather|err] ${d.toString().trim()}`));
         weatherProc.on('close', (c: number | null) => { addLog(`Weather_LLM_Strategy.py done (code ${c})`); check(); });
     });
     scrapers.on('error', (err: Error) => { addLog(`Spawn error: ${err.message}`); pipelineState.status = 'error'; });
 });
+
+// ── Serve built React frontend — MUST be last so it never shadows API routes ──
+// Build first: cd frontend && npm run build
+const FRONTEND_DIST = path.resolve(WORKSPACE_ROOT, 'frontend/dist');
+if (fs.existsSync(FRONTEND_DIST)) {
+    app.use(express.static(FRONTEND_DIST));
+    app.get('/{*path}', (req: Request, res: Response) => {
+        if (req.path.startsWith('/api/')) {
+            res.status(404).json({ error: `API route not found: ${req.path}` });
+            return;
+        }
+        res.sendFile(path.join(FRONTEND_DIST, 'index.html'));
+    });
+    console.log(`🌐 Serving frontend from: ${FRONTEND_DIST}`);
+} else {
+    console.log(`⚠️  Frontend not built. Run: cd frontend && npm run build`);
+}

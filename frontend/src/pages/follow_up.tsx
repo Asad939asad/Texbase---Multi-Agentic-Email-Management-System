@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import PipelineFeedbackWidget from '../component/PipelineFeedbackWidget';
+
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface SentApplication {
@@ -56,6 +58,7 @@ const SentPipelinePage: React.FC = () => {
   const [sentFollowups, setSentFollowups] = useState<SentFollowup[]>([]);
   const [reviewItems, setReviewItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [sendStatus, setSendStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   useEffect(() => {
     Promise.all([
@@ -293,9 +296,11 @@ const SentPipelinePage: React.FC = () => {
                                 const res = await fetch(`http://localhost:8000/api/followups/generate/${app.Unique_application_id || app.id}`, { method: 'POST' });
                                 const data = await res.json();
                                 if (data.ok) {
+                                  setSendStatus('success');
                                   alert('✅ Follow-up drafted! Check the Review Portal.');
                                   window.location.reload(); // Refresh to hide button
                                 } else {
+                                  setSendStatus('error');
                                   alert('❌ Error: ' + (data.error || 'Failed to generate'));
                                 }
                               } catch (e) {
@@ -313,10 +318,20 @@ const SentPipelinePage: React.FC = () => {
                         )}
                       </div>
                       {currentStage === 'followup_approved' && (
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/25">
-                          Follow-up queued ✓
-                        </span>
+                        <div className="flex flex-col items-end">
+                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/25">
+                            Follow-up queued ✓
+                          </span>
+                          {sendStatus === 'success' && (
+                            <PipelineFeedbackWidget 
+                              pipelineStage="followup"
+                              actionDescription={`Follow-up scheduled for: ${app.company_name}`}
+                              outcomeMessage="Follow-up queued successfully"
+                            />
+                          )}
+                        </div>
                       )}
+
                     </div>
                   </div>
                 );

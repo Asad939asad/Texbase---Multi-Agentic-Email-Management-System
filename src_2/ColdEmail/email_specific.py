@@ -456,6 +456,10 @@ def node_fetch_company(state: PipelineState) -> PipelineState:
 
     with FETCH_LOCK:
         try:
+            print(f"  [DEBUG] Attempting to open DB: {os.path.abspath(DB_PATH)}")
+            if not os.path.exists(DB_PATH):
+                print(f"  [ERROR] Database file does not exist at: {os.path.abspath(DB_PATH)}")
+            
             conn = sqlite3.connect(DB_PATH)
             conn.row_factory = sqlite3.Row
 

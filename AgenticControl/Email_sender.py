@@ -17,11 +17,11 @@ load_dotenv(dotenv_path=os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'bac
 # ==========================================
 # APP CREDENTIALS (From your server.ts)
 # ==========================================
-CLIENT_ID = os.getenv('CLIENT_ID')
-CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
 
 
-def send_email_from_database(db_row_data, database_file='database.json')), existing_unique_id=None):
+def send_email_from_database(db_row_data, database_file='database.json', existing_unique_id=None):
     """
     Constructs and sends an email using credentials dynamically loaded 
     from database.json, then saves the record to a follow-ups database.
@@ -121,7 +121,7 @@ def send_email_from_database(db_row_data, database_file='database.json')), exist
             # Split by double newline for paragraphs
             paragraphs = [p.strip() for p in html_body.split('\n\n') if p.strip()]
             if len(paragraphs) > 1:
-                html_body = "".join(f"<p style='margin-bottom:1.2em;'>{p.replace('\n', '<br />')}</p>" for p in paragraphs)
+                html_body = "".join("<p style='margin-bottom:1.2em;'>" + p.replace('\n', '<br />') + "</p>" for p in paragraphs)
             else:
                 html_body = html_body.replace('\n', '<br />')
         elif '\n' in html_body and not html_body.startswith('<'):
@@ -167,7 +167,7 @@ def save_to_followups_db(company_email, company_name, subject, body_json_str, me
     Saves or updates the sent email details into the master outreach journey database.
     If existing_unique_id is provided, it updates the record. Otherwise, it creates a new one.
     """
-    base_dir = os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/FollowUps')
+    base_dir = os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/FollowUps')
     os.makedirs(base_dir, exist_ok=True) 
     db_path = os.path.join(base_dir, 'sent_emails.db')
 
@@ -246,27 +246,20 @@ def save_to_followups_db(company_email, company_name, subject, body_json_str, me
 # ==========================================
 # Example Usage
 # ==========================================
-# if __name__ == "__main__":
+if __name__ == "__main__":
     
-#     sample_db_row = {
-#         "body_json": """{
-#           "body": {
-#             "generated_content": "Subject: Excited About Stripe's Mission and Eager to Contribute<br><br>Hi Stripe Team,<br><br>I hope this email finds you well. I’ve been following Stripe’s journey and am genuinely impressed by how you’ve built the financial infrastructure for the internet. Your mission to simplify global payments and empower businesses of all sizes resonates deeply with me. I’d love to be part of a team that’s making such a significant impact on the internet economy.<br><br>As a final-year AI student at GIKI, I’ve developed a strong foundation in building scalable systems and solving complex problems. My work often involves critical thinking and thorough research, which aligns well with Stripe’s focus on reliability and developer-friendly infrastructure. I’m particularly drawn to your vision of enabling businesses to innovate faster and reach customers worldwide, and I believe my skills and passion could contribute meaningfully to this goal.<br><br>I’ve shared some of my projects and contributions on my GitHub (https://github.com) and LinkedIn (https://linkedin.com). I’d love to connect and discuss how I can bring value to Stripe’s mission. Looking forward to the possibility of collaborating with such an inspiring team.<br><br>Best regards,<br>Asad Irfan",
-#             "excel_data": {
-#               "company_email": "u2022120@gmail.com",
-#               "role": "Software Engineer"
-#             },
-#             "applicant_data": {
-#               "personnel": {
-#                 "email": "asadchairman735@gmail.com",
-#                 "cv_file_path": os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/personnel_data/asadchairman735_at_gmail.com_Resume.pdf'))
-#               }
-#             }
-#           }
-#         }"""
-#     }
+    sample_db_row = {
+        "body_json": """{
+          "body": {
+            "generated_content": "Subject: Excited About Stripe's Mission and Eager to Contribute<br><br>Hi Stripe Team,<br><br>I hope this email finds you well. I’ve been following Stripe’s journey and am genuinely impressed by how you’ve built the financial infrastructure for the internet. Your mission to simplify global payments and empower businesses of all sizes resonates deeply with me. I’d love to be part of a team that’s making such a significant impact on the internet economy.<br><br>As a final-year AI student at GIKI, I’ve developed a strong foundation in building scalable systems and solving complex problems. My work often involves critical thinking and thorough research, which aligns well with Stripe’s focus on reliability and developer-friendly infrastructure. I’m particularly drawn to your vision of enabling businesses to innovate faster and reach customers worldwide, and I believe my skills and passion could contribute meaningfully to this goal.<br><br>I’ve shared some of my projects and contributions on my GitHub (https://github.com) and LinkedIn (https://linkedin.com). I’d love to connect and discuss how I can bring value to Stripe’s mission. Looking forward to the possibility of collaborating with such an inspiring team.<br><br>Best regards,<br>Asad Irfan",
+            "excel_data": {
+              "company_email": "u2022120@gmail.com",
+              "role": "Software Engineer"
+            }
+          }
+        }"""
+    }
 
-#     # Execute the function
-#     path_ = os.path.join(os.getcwd(), 'backend/database.json'))) # Make sure this points to the right place!
-#     send_email_from_database(sample_db_row, path_)abase.json'))) # Make sure this points to the right place!
-#     send_email_from_database(sample_db_row, path_)
+    # Execute the function
+    path_ = os.path.join(os.getcwd(), 'backend/database.json')
+    # send_email_from_database(sample_db_row, path_)

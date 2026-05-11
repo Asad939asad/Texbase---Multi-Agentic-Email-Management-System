@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import PipelineFeedbackWidget from '../component/PipelineFeedbackWidget';
+
 
 export interface TrackingRecord {
   id: number;
@@ -17,6 +19,7 @@ const TrackingDashboard: React.FC = () => {
   const [editingEmailId, setEditingEmailId] = useState<number | null>(null);
   const [tempEmail, setTempEmail] = useState('');
   const [toast, setToast] = useState<{ msg: string; ok: boolean } | null>(null);
+  const [sendStatus, setSendStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const showToast = (msg: string, ok: boolean) => {
     setToast({ msg, ok });
@@ -33,6 +36,10 @@ const TrackingDashboard: React.FC = () => {
       .then((data) => {
         setRecords(data);
         setLoading(false);
+        // If any record was just confirmed as 'sent', trigger the completion feedback state
+        if (data.some((r: TrackingRecord) => r.status.toLowerCase().includes('sent'))) {
+          setSendStatus('success');
+        }
       })
       .catch((err) => {
         console.error("Error fetching data:", err);
@@ -102,9 +109,16 @@ const TrackingDashboard: React.FC = () => {
       <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-zinc-900 via-zinc-950 to-black pointer-events-none" />
 
       {toast && (
-        <div className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-xl text-sm font-semibold shadow-2xl border transition-all
+        <div className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 px-5 py-3 rounded-xl text-sm font-semibold shadow-2xl border transition-all flex flex-col gap-3 items-center
           ${toast.ok ? 'bg-zinc-900 border-emerald-500/40 text-emerald-300' : 'bg-zinc-900 border-red-500/40 text-red-300'}`}>
-          {toast.msg}
+          <span>{toast.msg}</span>
+          {sendStatus === 'success' && (
+             <PipelineFeedbackWidget 
+               pipelineStage="send"
+               actionDescription="Batch email delivery"
+               outcomeMessage="Emails successfully dispatched to background agent"
+             />
+          )}
         </div>
       )}
 
@@ -209,6 +223,8 @@ const TrackingDashboard: React.FC = () => {
                       <div className={`shrink-0 px-3 py-1 rounded-md border text-[11px] font-bold uppercase tracking-wider shadow-sm ${getStatusColor(record.status, record.company_email)}`}>
                         {record.company_email === 'not updated' ? 'MISSING EMAIL' : record.status}
                       </div>
+                      {/* Feedback widget moved to toast area */}
+
                     </div>
                   </div>
                 ))}

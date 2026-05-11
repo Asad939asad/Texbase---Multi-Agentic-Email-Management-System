@@ -49,7 +49,8 @@ def init_tracking_db():
 
                 -- email meta
                 generated_subject TEXT,
-                date_added       DATETIME
+                date_added       DATETIME,
+                Unique_application_id TEXT
             )
         ''')
         conn.commit()
@@ -127,10 +128,15 @@ def process_next_company():
         body    = lines[1].strip() if len(lines) > 1 else raw_email
 
     # 4. Build the JSON blob stored in body_json (keeps backward compat with the frontend)
+    # 5. Generate a persistent Unique Application ID immediately
+    import random, string
+    unique_app_id = ''.join(random.choices(string.digits, k=20))
+    
     final_payload = {
         "body": {
             "generated_content": body,
             "subject": subject,
+            "Unique_application_id": unique_app_id,
             "outreach_data": {
                 "company_name":        company_name,
                 "company_email":       company_email,
@@ -158,13 +164,13 @@ def process_next_company():
                 company_name, company_email,
                 website, address, total_shipments, top_suppliers,
                 hs_codes, company_description, key_executives, deep_research_pdf,
-                generated_subject, date_added
+                generated_subject, date_added, Unique_application_id
             ) VALUES (
                 ?, ?, ?, ?,
                 ?, ?,
                 ?, ?, ?, ?,
                 ?, ?, ?, ?,
-                ?, ?
+                ?, ?, ?
             )
         ''', (
             body_json_str,
@@ -186,6 +192,7 @@ def process_next_company():
 
             subject,
             now.strftime("%Y-%m-%d %H:%M:%S"),
+            unique_app_id
         ))
         conn.commit()
 

@@ -12,8 +12,9 @@ import json
 import sys
 import os
 
-DB_REVIEW = os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/EmailsUnderReview/emailsUnderReview.db')))
-DB_READY  = os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/EmailsSent/email_to_be_sent.db')))
+ROOT_DIR = os.environ.get('WORKSPACE_ROOT', '.')
+DB_REVIEW = os.path.join(ROOT_DIR, 'Database/EmailsUnderReview/emailsUnderReview.db')
+DB_READY  = os.path.join(ROOT_DIR, 'Database/EmailsSent/email_to_be_sent.db')
 
 def update_email_content(db_id: int, new_body: str = None, new_subject: str = None, db_path: str = DB_REVIEW) -> dict:
     table = "ready_emails" if "email_to_be_sent" in db_path else "tracking"

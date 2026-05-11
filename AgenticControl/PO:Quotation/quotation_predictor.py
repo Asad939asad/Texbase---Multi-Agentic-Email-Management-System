@@ -325,12 +325,21 @@ You have access to Google Search — use it to find CURRENT LIVE MARKET PRICES f
 item before making your prediction.
 
 Your objective: Predict the BEST PRICE TO QUOTE TO THE CLIENT (in USD) for each
-Purchase Order line item, taking into account:
-  1. Current live market prices (search the web NOW for each product)
-  2. The comprehensive Pakistan textile market intelligence data below
-  3. A reasonable export profit margin of 8–15% for a Pakistani manufacturer
-  4. Pakistan-specific cost factors: USD/PKR rate, energy prices, cotton/yarn costs,
-     chemical input costs (naphtha, TPA, EG), and active supply chain risks
+Purchase Order line item, with HIGHER PRECISION on material quality and business logic.
+
+STRATEGIC PRICING CONSTRAINTS:
+  1. MATERIAL SENSITIVITY: 
+     - PREMIUM MATERIALS (Silk, Linen, Fine Combed Cotton, Giza): Apply a 20-25% margin due to higher volatility and sourcing complexity. 
+     - STANDARD MATERIALS (Regular Cotton, Polyester blends): Apply a 10-15% margin.
+     - DO NOT treat Silk as generic textile. It is a high-cost outlier.
+  2. UNIT OF MEASURE (UOM) STRICTNESS:
+     - Verify if the price is per YARD, METER, KG, or UNIT.
+     - Ensure the predicted price aligns with the quantity and UOM. A bulk chemical price (per ton) is vastly different from a lab sample price.
+  3. HALLUCINATION GUARDRAIL:
+     - If a row is a HEADER, a BUNDLE title, or a non-item description (e.g., "Note:", "Shipping Terms"), return "predicted_price_usd": "0" and "is_valid_item": false.
+     - Do not hallucinate prices for non-priceable rows.
+  4. LIVE MARKET GROUNDING:
+     - Search the web for each product (e.g. "Wholesale Silk fabric price 2026" or "Linen yarn market rate Pakistan").
 
 SOURCE DOCUMENT: {source_file}
 TOTAL ROWS TO PRICE: {len(rows)}
@@ -343,32 +352,27 @@ PO LINE ITEMS — ALL {len(rows)} ROWS (batch — price every row):
 {market_summary}
 
 PRICING INSTRUCTIONS:
-  - Search for live market price of each item (e.g. "hydrogen peroxide 50% bulk price 2026")
-  - Factor all active HIGH/MEDIUM risk alerts into your price cushion / margin
-  - Use USD/PKR interbank rate to convert local PKR costs to USD
-  - Apply 8–15% margin on top of estimated Total Landed Cost (raw material + energy + conversion)
-  - For chemicals: check naphtha/TPA/EG prices as cost drivers
-  - For yarn/cotton items: use Pakistan yarn prices + cotton futures
-  - State clearly which live search result informed each price
+  - Search for live market price of each item.
+  - Use USD/PKR interbank rate (from market data) to convert local PKR costs to USD.
+  - Apply the Material Sensitivity margins defined above.
+  - State clearly which live search result informed each price.
 
 RESPONSE FORMAT — Return ONLY a valid JSON array, NO markdown fences, NO extra text:
 [
   {{
-    "table_ref": "<string, the table this row came from>",
+    "table_ref": "<string>",
     "row_index": <int>,
     "item": "<item description>",
-    "quantity": "<from PO>",
-    "current_po_price": "<unit_price from PO>",
+    "is_valid_item": <boolean, false if header or note>,
     "predicted_price_usd": "<number as string, e.g. 145.50>",
-    "price_per": "<per kg / per unit / per meter — specify unit>",
-    "margin_applied_pct": "<e.g. 12>",
-    "currency": "USD",
-    "live_source": "<URL or market source you searched>",
-    "reasoning": "<3–4 sentences: live market rate found, cost build-up in PKR, margin, risk factors applied>"
+    "price_per": "<per kg / per yard / per unit>",
+    "margin_applied_pct": "<number as string>",
+    "live_source": "<URL or market source>",
+    "reasoning": "<4-5 sentences: explain material premium applied, UOM verification, and specific market rate used>"
   }}
 ]
 
-Return exactly {len(rows)} objects in the array — one per PO row above.
+Return exactly {len(rows)} objects in the array.
 """
     return prompt
 

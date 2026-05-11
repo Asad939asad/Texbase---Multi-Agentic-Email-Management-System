@@ -9,11 +9,11 @@ from dotenv import load_dotenv
 from azure.ai.inference import ChatCompletionsClient
 from azure.core.credentials import AzureKeyCredential
 
-load_dotenv(dotenv_path=os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'backend/.env'))))
+ROOT_DIR = os.environ.get('WORKSPACE_ROOT', '.')
+load_dotenv(dotenv_path=os.path.join(ROOT_DIR, 'backend/.env'))
 
-GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-INBOX_DB = os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/Inbox/inbox.db')))
-REVIEW_DB = os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/EmailsUnderReview/emailsUnderReview.db')))
+INBOX_DB = os.path.join(ROOT_DIR, 'Database/Inbox/inbox.db')
+REVIEW_DB = os.path.join(ROOT_DIR, 'Database/EmailsUnderReview/emailsUnderReview.db')
 
 SENDER = {
     "company": "Arooj Enterprises",

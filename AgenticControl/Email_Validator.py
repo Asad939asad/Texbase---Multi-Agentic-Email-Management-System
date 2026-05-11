@@ -4,7 +4,8 @@ import os
 
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path=os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'backend/.env'))))
+ROOT_DIR = os.environ.get('WORKSPACE_ROOT', '.')
+load_dotenv(dotenv_path=os.path.join(ROOT_DIR, 'backend/.env'))
 hunter_api_key = os.getenv("HUNTER_API_KEY")
 
 

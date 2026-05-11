@@ -18,3 +18,33 @@ pypdf>=4.0.0
 
 # HTTP requests (for OCR.space API)
 requests>=2.31.0
+
+# Data processing (for Excel_Processor.py)
+pandas>=2.0.0
+openpyxl>=3.1.0
+numbers-parser>=4.0.0
+
+# Google API (for Email_sender.py)
+google-api-python-client>=2.100.0
+google-auth-oauthlib>=1.1.0
+google-auth-httplib2>=0.1.0
+
+# Azure AI (for EmailGenerator.py)
+azure-ai-inference>=1.0.0b1
+azure-core>=1.30.0
+
+# Playwright (for scraping)
+playwright>=1.40.0
+
+# AI Agents & Graphs
+langgraph>=0.0.10
+pydantic>=2.0.0
+
+# Scraping & Web Tools
+beautifulsoup4>=4.12.0
+
+# Document Generation
+fpdf>=1.7.2
+
+# Environment
+python-dotenv>=1.0.0

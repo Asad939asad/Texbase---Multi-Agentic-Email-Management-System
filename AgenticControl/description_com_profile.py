@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 
 # ── Configuration ────────────────────────────────────────────────────────
 # In a real app, load these from your .env file
-env_address = os.path.join(os.environ.get('WORKSPACE_ROOT', os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'backend/.env'))
+ROOT_DIR = os.environ.get('WORKSPACE_ROOT', '.')
+env_address = os.path.join(ROOT_DIR, 'backend/.env')
 load_dotenv(dotenv_path=env_address)
 
 # Now it will successfully find your keys!

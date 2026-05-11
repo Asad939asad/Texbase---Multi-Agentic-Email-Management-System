@@ -12,9 +12,9 @@ from dotenv import load_dotenv
 
 load_dotenv(dotenv_path=os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'backend/.env'))
 
-CLIENT_ID = os.getenv('CLIENT_ID')
-CLIENT_SECRET = os.getenv('CLIENT_SECRET')
-DATABASE_FILE = 'database.json'
+CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+DATABASE_FILE = os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'backend/database.json')
 SENT_DB_PATH = os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/FollowUps/sent_emails.db')
 QUEUE_DB_PATH = os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/EmailsSent/email_to_be_sent.db')
 INBOX_DB_DIR = os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/Inbox')
