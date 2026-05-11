@@ -21,7 +21,7 @@ app.use((_req: Request, res: Response, next: () => void) => {
 
 console.log('Backend Started !!!');
 // ── Configuration ─────────────────────────────────────────────────────────────
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.SPACE_ID ? '7860' : (process.env.PORT || 8000);
 const WORKSPACE_ROOT = process.env.WORKSPACE_ROOT || path.resolve(process.cwd(), '..');
 const PYTHON_EXE = process.env.PYTHON_EXE || path.join(WORKSPACE_ROOT, 'qwen_env/bin/python3');
 const PYTHON_DIR = path.resolve(WORKSPACE_ROOT, 'AgenticControl');
@@ -69,7 +69,16 @@ const DB_INBOX = path.join(WORKSPACE_ROOT, 'Database/Inbox/inbox.db');
 // ── Shared DB connection for testing / debugging ──────────────────────────────
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || '';
-const GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || 'http://localhost:8000/api/auth/google/callback';
+// Detect if running on Hugging Face Spaces
+const IS_HF = !!process.env.SPACE_ID;
+const HF_URL = IS_HF ? `https://${process.env.SPACE_ID.replace('/', '-')}.hf.space` : null;
+
+// -- Redirect URI --
+// Priority: 1. ENV, 2. HF Auto-detect, 3. Localhost
+const DEFAULT_REDIRECT = HF_URL ? `${HF_URL}/api/auth/google/callback` : 'http://localhost:8000/api/auth/google/callback';
+const GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || DEFAULT_REDIRECT;
+
+console.log(`📡 Redirect URI configured as: ${GOOGLE_REDIRECT_URI}`);
 
 // ── Session storage (JSON file) ───────────────────────────────────────────────
 const DB_FILE = path.resolve('database.json');
@@ -1266,10 +1275,13 @@ app.post('/api/followups/generate/:id', async (req: Request, res: Response) => {
 });
 
 
-app.listen(PORT, () => {
-    console.log(`🚀 Backend Auth Server running on http://localhost:${PORT}`);
-
-    // ── Token lifecycle ──────────────────────────────────────────────────────
+    // Hugging Face expects binding to 0.0.0.0
+    const HOST = '0.0.0.0';
+    app.listen(Number(PORT), HOST, () => {
+        console.log(`🚀 Backend Auth Server running on http://${HOST}:${PORT}`);
+        if (IS_HF) console.log(`🌍 Hugging Face Space URL detected: ${HF_URL}`);
+    });
+ // ── Token lifecycle ──────────────────────────────────────────────────────
     seedClientCredentials();       // load saved tokens into oauth2Client on boot
     listenForTokenEvents();        // write fresh tokens whenever Google auto-refreshes
     proactiveTokenRefresh();       // force a refresh immediately on startup
