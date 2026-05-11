@@ -202,13 +202,13 @@ export default function InboxPage() {
                           outcomeMessage="Draft successfully generated and pushed to pipeline"
                         />
                       )}
-
-
                     </div>
                   )}
                 </div>
               );
-          </div>
+              })}
+            </div>
+          )
         )}
       </div>
 
