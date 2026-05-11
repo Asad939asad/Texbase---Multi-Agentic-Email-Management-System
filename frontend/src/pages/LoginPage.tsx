@@ -20,7 +20,7 @@ export default function LoginPage({ onLogout }: { onLogout?: () => void }) {
 
     // Check if database.json has an active session
     useEffect(() => {
-        fetch('http://localhost:8000/api/auth/session')
+        fetch('/api/auth/session')
             .then(res => res.ok ? res.json() : null)
             .then(data => {
                 if (data && data.email) {
@@ -34,7 +34,7 @@ export default function LoginPage({ onLogout }: { onLogout?: () => void }) {
         console.log('Button clicked!');
         // setLoading(true);
         try {
-            const response = await fetch('http://localhost:8000/api/auth/google');
+            const response = await fetch('/api/auth/google');
             const data = await response.json();
             console.log('Got URL:', data.url);
             window.location.href = data.url;

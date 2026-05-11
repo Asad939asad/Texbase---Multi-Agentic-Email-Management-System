@@ -46,7 +46,3 @@ chroma_db/
 Google Credentials
 Google Credentials/
 client_secret_*.json
-
-# Frontend (not served from this container)
-frontend
-frontend/

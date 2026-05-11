@@ -5,7 +5,7 @@ import requests
 import os
 import re
 # --- CONFIGURATION ---
-LLM_URL = "http://localhost:8003/generate"
+LLM_URL = "https://unscotched-devon-interpapillary.ngrok-free.dev/generate"
 ROOT_DIR = os.environ.get('WORKSPACE_ROOT', '.')
 DB_PATH = os.path.join(ROOT_DIR, 'Database/personnel_data/ResumeProcessed.db')
 

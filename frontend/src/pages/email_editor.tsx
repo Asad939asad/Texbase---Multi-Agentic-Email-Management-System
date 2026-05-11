@@ -61,8 +61,8 @@ export default function EmailEditor({ id, onLogout }: EmailEditorProps) {
     useEffect(() => {
         // Route to the correct DB endpoint based on type
         const endpoint = emailType === 'followup'
-            ? `http://localhost:8000/api/review/followup/${id}`
-            : `http://localhost:8000/api/tracking/${id}`;
+            ? `/api/review/followup/${id}`
+            : `/api/tracking/${id}`;
 
         fetch(endpoint)
             .then(res => {
@@ -98,8 +98,8 @@ export default function EmailEditor({ id, onLogout }: EmailEditorProps) {
 
         if (!isSilent) setSaving(true);
         const saveUrl = emailType === 'followup'
-            ? `http://localhost:8000/api/review/followup/${id}/save`
-            : `http://localhost:8000/api/tracking/${id}/save`;
+            ? `/api/review/followup/${id}/save`
+            : `/api/tracking/${id}/save`;
         try {
             const res = await fetch(saveUrl, {
                 method: 'PUT',
@@ -151,8 +151,8 @@ export default function EmailEditor({ id, onLogout }: EmailEditorProps) {
         setSaving(true);
         // Route approve to correct endpoint based on type
         const approveUrl = emailType === 'followup'
-            ? `http://localhost:8000/api/review/followup/${id}/approve`
-            : `http://localhost:8000/api/tracking/${id}/status`;
+            ? `/api/review/followup/${id}/approve`
+            : `/api/tracking/${id}/status`;
         try {
             const body = emailType === 'followup' ? '{}' : JSON.stringify({ status: 'Approved' });
             const res = await fetch(approveUrl, {
@@ -220,7 +220,7 @@ export default function EmailEditor({ id, onLogout }: EmailEditorProps) {
             // Inject Strategic Context into the feedback to guide the AI better
             const enrichedFeedback = `[ROLE: ${senderRole}] [FOCUS: ${strategicFocus.join(', ')}] ${feedback}`;
             
-            const res = await fetch(`http://localhost:8000/api/tracking/${id}/ai-edit`, {
+            const res = await fetch(`/api/tracking/${id}/ai-edit`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ feedback: enrichedFeedback })

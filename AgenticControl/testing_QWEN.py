@@ -2,7 +2,7 @@ import os
 # import requests
 
 # # The URL of your running FastAPI server
-# url = "http://localhost:8003/generate"
+# url = "https://unscotched-devon-interpapillary.ngrok-free.dev/generate"
 
 # # The data structure matching your Pydantic model
 # data = {

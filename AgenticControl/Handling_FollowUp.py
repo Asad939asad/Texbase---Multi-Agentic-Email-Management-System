@@ -85,7 +85,7 @@ from dotenv import load_dotenv
 # but I have included your fallback token here for easy testing.
 load_dotenv(dotenv_path=os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'backend/.env'))
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
-LLM_URL = "http://localhost:8003/generate" 
+LLM_URL = "https://unscotched-devon-interpapillary.ngrok-free.dev/generate" 
 
 def call_llm(system_prompt: str, user_query: str) -> str:
     """

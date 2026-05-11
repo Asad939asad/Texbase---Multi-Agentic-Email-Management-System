@@ -39,12 +39,12 @@ export default function App() {
 
     } else {
       // ── Verify Session and Registration ────────────────────────────────
-      fetch('http://localhost:8000/api/auth/session')
+      fetch('/api/auth/session')
         .then(r => r.ok ? r.json() : null)
         .then((data: UserInfo | null) => {
           if (data?.email) {
             // Session exists, let's verify if they are in the DB
-            fetch(`http://localhost:8000/api/auth/check-registered?email=${encodeURIComponent(data.email)}`)
+            fetch(`/api/auth/check-registered?email=${encodeURIComponent(data.email)}`)
               .then(r => r.ok ? r.json() : { registered: false })
               .then((result: { registered: boolean }) => {
                 const currentPath = window.location.pathname;
@@ -150,7 +150,7 @@ export default function App() {
 
   const handleLogout = async () => {
     try {
-      await fetch('http://localhost:8000/api/auth/logout');
+      await fetch('/api/auth/logout');
     } catch (e) {
       console.error(e);
     }

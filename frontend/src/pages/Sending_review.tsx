@@ -28,7 +28,7 @@ const TrackingDashboard: React.FC = () => {
 
   const fetchAll = () => {
     setLoading(true);
-    fetch('http://localhost:8000/api/tracking_ready_to_send')
+    fetch('/api/tracking_ready_to_send')
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch');
         return res.json();
@@ -52,7 +52,7 @@ const TrackingDashboard: React.FC = () => {
   }, []);
 
   const updateMetadata = async (id: number, field: string, value: string) => {
-    const res = await fetch(`http://localhost:8000/api/tracking/${id}/metadata`, {
+    const res = await fetch(`/api/tracking/${id}/metadata`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ field, value, dbType: 'ready' }),
@@ -81,7 +81,7 @@ const TrackingDashboard: React.FC = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch('http://localhost:8000/api/auth/logout');
+      await fetch('/api/auth/logout');
     } catch (e) {
       console.error(e);
     }

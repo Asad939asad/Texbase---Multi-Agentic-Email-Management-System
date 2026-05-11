@@ -1,23 +1,67 @@
-# ── Dockerfile ───────────────────────────────────────────────────────────────
-# Fast build: Uses the pre-baked 'texbase-libs' image
+# Build Frontend
+FROM node:20-slim AS frontend-builder
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ ./
+RUN npm run build
 
-FROM texbase-libs
-
+# Final Stage
+FROM python:3.11-slim
 WORKDIR /app
 
-# The libraries are already in /opt/venv and backend/node_modules from the base image.
-# We just copy the latest source code.
+# Install Node.js and system dependencies for Playwright
+RUN apt-get update && apt-get install -y \
+    curl \
+    libnss3 \
+    libnspr4 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libcups2 \
+    libdrm2 \
+    libxkbcommon0 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixes3 \
+    libxrandr2 \
+    libgbm1 \
+    libasound2 \
+    libpango-1.0-0 \
+    libcairo2 \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Backend dependencies
+COPY backend/package*.json ./backend/
+RUN cd backend && npm install
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+RUN playwright install chromium
+
+# Copy source code
 COPY . .
 
-# Ensure the environment is correct
+# Copy built frontend from builder stage
+COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
+
+# Set environment variables
 ENV NODE_ENV=production
+ENV PORT=7860
 ENV WORKSPACE_ROOT=/app
-ENV PYTHON_EXE=/opt/venv/bin/python3
+ENV PYTHON_EXE=python3
+ENV PYTHONUNBUFFERED=1
 
-EXPOSE 8000
+# Create necessary directories and set permissions
+RUN mkdir -p Database/EmailsUnderReview Database/EmailsSent Database/FollowUps Database/Inbox \
+    && chmod -R 777 Database \
+    && chmod -R 777 .
 
-# Health-check
-HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
-  CMD curl -fs http://localhost:8000/api/health || exit 1
+# Expose port (Hugging Face expects 7860)
+EXPOSE 7860
 
-CMD ["npm", "--prefix", "backend", "run", "dev"]
+# Start application
+CMD ["npm", "--prefix", "backend", "run", "start"]

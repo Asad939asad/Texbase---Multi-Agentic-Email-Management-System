@@ -21,8 +21,7 @@ app.use((_req: Request, res: Response, next: () => void) => {
 
 console.log('Backend Started !!!');
 // ── Configuration ─────────────────────────────────────────────────────────────
-const PORT = 8000;
-const FRONTEND_URL = 'http://localhost:5173';
+const PORT = process.env.PORT || 8000;
 const WORKSPACE_ROOT = process.env.WORKSPACE_ROOT || path.resolve(process.cwd(), '..');
 const PYTHON_EXE = process.env.PYTHON_EXE || path.join(WORKSPACE_ROOT, 'qwen_env/bin/python3');
 const PYTHON_DIR = path.resolve(WORKSPACE_ROOT, 'AgenticControl');

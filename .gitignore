@@ -91,3 +91,20 @@ frontend\ copy/
 scratch/
 *.log
 feedback_log.json
+
+# ── Hugging Face & Deployment Exclusions ────────────────────────────────────
+**/*.png
+**/*.pdf
+**/*.numbers
+**/*.bin
+**/.playwright_tmp/
+**/.playwright_tmp
+**/ChromaMarket/
+**/chroma_db/
+**/Database/**/*.db
+**/Database/**/*.xlsx
+**/Database/**/*.xls
+**/Database/**/*.numbers
+**/AgenticControl/PO:Quotation/
+**/src_2/CashFlowCareTaker/
+**/src_2/ColdEmail/*.pdf

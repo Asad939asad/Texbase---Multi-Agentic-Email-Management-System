@@ -3,7 +3,7 @@ import MarketFeedbackWidget from '../component/MarketFeedbackWidget';
 
 
 
-const API = 'http://localhost:8000';
+const API = '';
 const PIPELINE_INTERVAL_MS = 60 * 60 * 1000; // 1 hour
 
 interface RiskAlert { rule_id: string; category: string; rule_name: string; severity: string; recommendation: string; triggered: boolean; condition: string; }

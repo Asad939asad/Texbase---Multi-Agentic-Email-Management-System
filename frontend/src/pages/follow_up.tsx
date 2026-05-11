@@ -62,9 +62,9 @@ const SentPipelinePage: React.FC = () => {
 
   useEffect(() => {
     Promise.all([
-      fetch('http://localhost:8000/api/followups/journey').then(r => r.ok ? r.json() : []),
-      fetch('http://localhost:8000/api/followups/sent-approved').then(r => r.ok ? r.json() : []),
-      fetch('http://localhost:8000/api/review/all').then(r => r.ok ? r.json() : []),
+      fetch('/api/followups/journey').then(r => r.ok ? r.json() : []),
+      fetch('/api/followups/sent-approved').then(r => r.ok ? r.json() : []),
+      fetch('/api/review/all').then(r => r.ok ? r.json() : []),
     ]).then(([apps, followups, reviews]) => {
       setSentApps(apps);
       setSentFollowups(followups);
@@ -116,7 +116,7 @@ const SentPipelinePage: React.FC = () => {
             ← Dashboard
           </button>
           <button
-            onClick={() => { fetch('http://localhost:8000/api/auth/logout'); window.location.href = '/'; }}
+            onClick={() => { fetch('/api/auth/logout'); window.location.href = '/'; }}
             className="text-sm font-bold text-red-400 hover:text-red-300 border border-red-500/30 px-4 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 transition-all"
           >
             Logout
@@ -293,7 +293,7 @@ const SentPipelinePage: React.FC = () => {
                           <button
                             onClick={async () => {
                               try {
-                                const res = await fetch(`http://localhost:8000/api/followups/generate/${app.Unique_application_id || app.id}`, { method: 'POST' });
+                                const res = await fetch(`/api/followups/generate/${app.Unique_application_id || app.id}`, { method: 'POST' });
                                 const data = await res.json();
                                 if (data.ok) {
                                   setSendStatus('success');

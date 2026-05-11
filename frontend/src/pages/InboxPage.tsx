@@ -29,7 +29,7 @@ export default function InboxPage() {
   const fetchInbox = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/inbox');
+      const res = await fetch('/api/inbox');
       const data = await res.json();
       setThreads(data || []);
     } catch (e) {
@@ -46,7 +46,7 @@ export default function InboxPage() {
   const handleSync = async () => {
     setSyncing(true);
     try {
-      const res = await fetch('http://localhost:8000/api/inbox/sync', { method: 'POST' });
+      const res = await fetch('/api/inbox/sync', { method: 'POST' });
       const data = await res.json();
       if (data.success) {
         alert(`Sync complete. Found ${data.count} reply messages in inbox.`);
@@ -87,7 +87,7 @@ export default function InboxPage() {
   const handleDraftReply = async (id: number) => {
     setDraftingId(id);
     try {
-      const res = await fetch(`http://localhost:8000/api/inbox/${id}/draft`, { method: 'POST' });
+      const res = await fetch(`/api/inbox/${id}/draft`, { method: 'POST' });
       const data = await res.json();
       if (data.success) {
         alert("Draft successfully generated and pushed to the Pipeline for review!");

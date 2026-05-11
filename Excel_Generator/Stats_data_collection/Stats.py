@@ -31,7 +31,7 @@ DATA_FILES = {
     "zce_cotton":       os.path.join(BASE, "ZCE_Cotton_China", 'zce_cotton.json'),
 }
 
-LLM_URL = "http://localhost:8003/generate"
+LLM_URL = "https://unscotched-devon-interpapillary.ngrok-free.dev/generate"
 
 def call_llm(system_prompt, user_query):
     try:

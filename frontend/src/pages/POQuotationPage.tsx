@@ -40,7 +40,7 @@ export default function POQuotationPage() {
     if (loading) {
       interval = setInterval(async () => {
         try {
-          const res = await fetch('http://localhost:8000/api/po/pipeline-status');
+          const res = await fetch('/api/po/pipeline-status');
           const data = await res.json();
           if (data.log) setPipelineLog(data.log);
           if (data.status === 'done' || data.status === 'error') {
@@ -57,7 +57,7 @@ export default function POQuotationPage() {
 
   const fetchTables = async () => {
     try {
-      const res = await fetch('http://localhost:8000/api/po/tables');
+      const res = await fetch('/api/po/tables');
       const data = await res.json();
       if (data.tables) setExistingTables(data.tables);
     } catch (err) {
@@ -71,14 +71,14 @@ export default function POQuotationPage() {
     setPredictions([]); // Clear previous predictions
     try {
       // 1. Fetch Raw Table Data
-      const resRaw = await fetch(`http://localhost:8000/api/po/table/${tableName}`);
+      const resRaw = await fetch(`/api/po/table/${tableName}`);
       const dataRaw = await resRaw.json();
       if (dataRaw.success) {
         setTableRows(dataRaw.rows);
       }
 
       // 2. Fetch Existing Predictions if any
-      const resPred = await fetch(`http://localhost:8000/api/po/predictions/${tableName}`);
+      const resPred = await fetch(`/api/po/predictions/${tableName}`);
       const dataPred = await resPred.json();
       if (dataPred.success && dataPred.predictions) {
         setPredictions(dataPred.predictions);
@@ -95,7 +95,7 @@ export default function POQuotationPage() {
     setIsPredicting(true);
     setError(null);
     try {
-      const res = await fetch('http://localhost:8000/api/po/predict', {
+      const res = await fetch('/api/po/predict', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ table_name: selectedTable }),
@@ -129,7 +129,7 @@ export default function POQuotationPage() {
     formData.append('file', file);
 
     try {
-      const res = await fetch('http://localhost:8000/api/po/process', {
+      const res = await fetch('/api/po/process', {
         method: 'POST',
         body: formData,
       });

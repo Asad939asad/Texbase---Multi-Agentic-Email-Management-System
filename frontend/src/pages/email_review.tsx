@@ -79,7 +79,7 @@ const TrackingDashboard: React.FC = () => {
 
   const fetchAll = () => {
     setLoading(true);
-    fetch('http://localhost:8000/api/review/all')
+    fetch('/api/review/all')
       .then(r => { if (!r.ok) throw new Error('Failed to fetch'); return r.json(); })
       .then(data => { setRecords(data); setLoading(false); })
       .catch(err => { console.error(err); setLoading(false); });
@@ -88,7 +88,7 @@ const TrackingDashboard: React.FC = () => {
   useEffect(() => {
     fetchAll();
     // Load current send-switch state from server
-    fetch('http://localhost:8000/api/settings/send-switch')
+    fetch('/api/settings/send-switch')
       .then(r => r.json())
       .then(d => setSendEnabled(d.enabled ?? false))
       .catch(() => { });
@@ -97,7 +97,7 @@ const TrackingDashboard: React.FC = () => {
   const toggleSend = async () => {
     setSwitchLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/settings/send-switch', {
+      const res = await fetch('/api/settings/send-switch', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ enabled: !sendEnabled }),
@@ -112,7 +112,7 @@ const TrackingDashboard: React.FC = () => {
   };
 
   const updateMetadata = async (id: number, field: string, value: string) => {
-    const res = await fetch(`http://localhost:8000/api/tracking/${id}/metadata`, {
+    const res = await fetch(`/api/tracking/${id}/metadata`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ field, value, dbType: 'review' }),
@@ -147,8 +147,8 @@ const TrackingDashboard: React.FC = () => {
     }
     setActionLoading(record.id);
     const url = record.type === 'cold'
-      ? `http://localhost:8000/api/review/cold/${record.id}/approve`
-      : `http://localhost:8000/api/review/followup/${record.id}/approve`;
+      ? `/api/review/cold/${record.id}/approve`
+      : `/api/review/followup/${record.id}/approve`;
     try {
       const res = await fetch(url, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: '{}' });
       const data = await res.json();
@@ -162,8 +162,8 @@ const TrackingDashboard: React.FC = () => {
     e.stopPropagation();
     setActionLoading(record.id);
     const url = record.type === 'cold'
-      ? `http://localhost:8000/api/review/cold/${record.id}/reject`
-      : `http://localhost:8000/api/review/followup/${record.id}/reject`;
+      ? `/api/review/cold/${record.id}/reject`
+      : `/api/review/followup/${record.id}/reject`;
     try {
       const res = await fetch(url, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: '{}' });
       const data = await res.json();
@@ -178,8 +178,8 @@ const TrackingDashboard: React.FC = () => {
     if (!window.confirm('Permanently delete this record? This will end its journey.')) return;
     setActionLoading(record.id);
     const url = record.type === 'cold'
-      ? `http://localhost:8000/api/review/cold/${record.id}`
-      : `http://localhost:8000/api/review/followup/${record.id}`;
+      ? `/api/review/cold/${record.id}`
+      : `/api/review/followup/${record.id}`;
     try {
       const res = await fetch(url, { method: 'DELETE' });
       const data = await res.json();
@@ -248,7 +248,7 @@ const TrackingDashboard: React.FC = () => {
             ← Dashboard
           </button>
           <button
-            onClick={() => { fetch('http://localhost:8000/api/auth/logout'); window.location.href = '/'; }}
+            onClick={() => { fetch('/api/auth/logout'); window.location.href = '/'; }}
             className="text-sm font-bold text-red-400 hover:text-red-300 transition-all border border-red-500/30 px-4 py-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20"
           >
             Logout

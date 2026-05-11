@@ -16,7 +16,7 @@ from email_specific import run_batch, write_excel, DEEP_RES_PDF_DIR, BATCH_SIZE,
 # Outreach data pipeline — no email validation or website scraping needed
 
 # --- CONFIGURATION ---
-LLM_URL = "http://localhost:8003/generate"
+LLM_URL = "https://unscotched-devon-interpapillary.ngrok-free.dev/generate"
 DB_PATH = os.path.join(os.environ.get('WORKSPACE_ROOT', '.'), 'Database/outreach_data/excel_data.db')
 
 os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)

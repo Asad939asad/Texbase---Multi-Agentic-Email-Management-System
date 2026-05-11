@@ -17,7 +17,7 @@ from datetime import datetime
 BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
 CSV_PATH    = os.path.join(BASE_DIR, "Weather_Forecast", 'pakistan_16day_detailed_rain.csv')
 OUTPUT_JSON = os.path.join(BASE_DIR, "Weather_Forecast", 'weather_strategic_predictions.json')
-LLM_URL     = "http://localhost:8003/generate"
+LLM_URL     = "https://unscotched-devon-interpapillary.ngrok-free.dev/generate"
 
 SINDH_CITIES  = {"Sanghar", "Hyderabad", "Ghotki", "Khairpur"}
 PUNJAB_CITIES = {"Bahawalpur", "Multan", "Rahim Yar Khan", "Khanewal", "Bahawalnagar", "Lodhran"}
