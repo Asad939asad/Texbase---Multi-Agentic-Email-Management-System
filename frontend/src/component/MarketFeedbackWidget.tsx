@@ -8,7 +8,6 @@ interface Props {
 
 const MarketFeedbackWidget: React.FC<Props> = ({ parameterName, predictionSummary, fullResponse }) => {
   const [step, setStep] = useState<'initial' | 'annotate' | 'submitted'>('initial');
-  const [flaggedText, setFlaggedText] = useState('');
   const [comment, setComment] = useState('');
 
   const send = async (type: 'good' | 'bad', annotation?: { excerpt: string; comment: string }) => {
