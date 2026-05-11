@@ -1280,8 +1280,7 @@ app.post('/api/followups/generate/:id', async (req: Request, res: Response) => {
     app.listen(Number(PORT), HOST, () => {
         console.log(`🚀 Backend Auth Server running on http://${HOST}:${PORT}`);
         if (IS_HF) console.log(`🌍 Hugging Face Space URL detected: ${HF_URL}`);
-    });
- // ── Token lifecycle ──────────────────────────────────────────────────────
+    // ── Token lifecycle ──────────────────────────────────────────────────────
     seedClientCredentials();       // load saved tokens into oauth2Client on boot
     listenForTokenEvents();        // write fresh tokens whenever Google auto-refreshes
     proactiveTokenRefresh();       // force a refresh immediately on startup
