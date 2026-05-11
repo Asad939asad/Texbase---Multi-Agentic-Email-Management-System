@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import PipelineFeedbackWidget from '../component/PipelineFeedbackWidget';
 
-
-
 interface ThreadMessage {
   from: string;
   date: string;
@@ -62,26 +60,16 @@ export default function InboxPage() {
     }
   };
 
-  // Clean email text to remove quoted replies
   const cleanEmailBody = (text: string) => {
     if (!text) return "";
-    // Remove "On Date, Person wrote:" blocks and anything after it
     const parts = text.split(/On\s+(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun).+?wrote:/i);
     let cleaned = parts[0];
-    
-    // Remove "-----Original Message-----" blocks
     cleaned = cleaned.split(/-----Original Message-----/i)[0];
-    
-    // Remove "From: ... Sent: ..." blocks
     cleaned = cleaned.split(/From:\s+.+?\nSent:/i)[0];
-
-    // Strip any remaining lines that start with ">" (quoted text)
     cleaned = cleaned.split('\n').filter(line => !line.trim().startsWith('>')).join('\n');
-    
     return cleaned.trim();
   };
 
-  // Handle drafting a reply via LLM
   const [draftingId, setDraftingId] = useState<number | null>(null);
 
   const handleDraftReply = async (id: number) => {
@@ -91,7 +79,7 @@ export default function InboxPage() {
       const data = await res.json();
       if (data.success) {
         alert("Draft successfully generated and pushed to the Pipeline for review!");
-        fetchInbox(); // Refresh to show status update
+        fetchInbox();
       } else {
         alert("Failed to draft reply: " + (data.error || "Unknown error"));
       }
@@ -105,7 +93,6 @@ export default function InboxPage() {
 
   return (
     <div className="flex flex-col items-center justify-start w-full px-4 pt-10 pb-20 max-w-7xl mx-auto min-h-screen">
-      {/* Header */}
       <div className="flex w-full items-center justify-between mb-10 shrink-0">
         <div>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl mb-3 drop-shadow-lg bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-500">
@@ -142,10 +129,8 @@ export default function InboxPage() {
               
               return (
                 <div key={t.id} className="relative group bg-zinc-900/40 backdrop-blur-md rounded-2xl border border-white/5 hover:border-pink-500/30 transition-all duration-300 shadow-xl overflow-hidden shrink-0">
-                  {/* Subtle background glow effect on hover */}
                   <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                   
-                  {/* Thread Header */}
                   <div 
                     onClick={() => setExpandedId(isExpanded ? null : t.id)}
                     className={`relative z-10 p-6 flex justify-between items-center cursor-pointer transition-colors ${isExpanded ? 'bg-pink-500/5 border-b border-white/5' : ''}`}
@@ -164,7 +149,6 @@ export default function InboxPage() {
                     </div>
                   </div>
 
-                  {/* Thread Body (Expanded) */}
                   {isExpanded && (
                     <div className="relative z-10 p-6 bg-zinc-950/50">
                       <h4 className="text-xs font-bold text-zinc-500 uppercase tracking-widest mb-4">Thread History</h4>
@@ -182,7 +166,6 @@ export default function InboxPage() {
                         ))}
                       </div>
                       
-                      {/* Action buttons */}
                       <div className="mt-6 flex gap-4 justify-end">
                         <button className="bg-white/5 text-zinc-300 font-semibold py-2 px-6 rounded-lg border border-white/10 hover:bg-zinc-800 transition-colors">
                           Archive
@@ -206,13 +189,11 @@ export default function InboxPage() {
                   )}
                 </div>
               );
-              })}
-            </div>
-          )
+            })}
+          </div>
         )}
       </div>
 
-      {/* ── SYSTEM REVIEW & TELEMETRY SECTION ── */}
       <div className="w-full mt-20 pt-10 border-t border-white/5">
         <div className="flex items-center gap-3 mb-6">
           <div className="p-2 bg-indigo-500/10 rounded-lg border border-indigo-500/20">
@@ -225,7 +206,6 @@ export default function InboxPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Quick Metrics */}
           <div className="bg-zinc-900/30 backdrop-blur-sm p-6 rounded-2xl border border-white/5 flex flex-col justify-center">
             <span className="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-2">Reply Accuracy</span>
             <div className="text-3xl font-black text-indigo-400">92.4%</div>
@@ -238,7 +218,6 @@ export default function InboxPage() {
             <div className="text-[10px] text-zinc-600 mt-1">Avg per thread classification</div>
           </div>
 
-          {/* Qualitative Feedback */}
           <div className="bg-zinc-900/30 backdrop-blur-sm p-6 rounded-2xl border border-white/5">
             <PipelineFeedbackWidget 
               pipelineStage="inbox_read"
