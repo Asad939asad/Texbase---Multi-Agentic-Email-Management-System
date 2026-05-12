@@ -89,7 +89,6 @@ screenshots/
 screenshots.zip
 frontend\ copy/
 scratch/
-*.log
 feedback_log.json
 
 # ── Hugging Face & Deployment Exclusions ────────────────────────────────────
@@ -106,5 +105,3 @@ feedback_log.json
 **/Database/**/*.xls
 **/Database/**/*.numbers
 **/AgenticControl/PO:Quotation/
-**/src_2/CashFlowCareTaker/
-**/src_2/ColdEmail/*.pdf
