@@ -71,14 +71,18 @@ const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || '';
 // Detect if running on Hugging Face Spaces
 const IS_HF = !!process.env.SPACE_ID;
-const HF_URL = IS_HF ? `https://${process.env.SPACE_ID.replace('/', '-')}.hf.space` : null;
+const HF_URL = IS_HF ? `https://${process.env.SPACE_ID!.replace('/', '-')}.hf.space` : null;
 
 // -- Redirect URI --
 // Priority: 1. ENV, 2. HF Auto-detect, 3. Localhost
 const DEFAULT_REDIRECT = HF_URL ? `${HF_URL}/api/auth/google/callback` : 'http://localhost:8000/api/auth/google/callback';
 const GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI || DEFAULT_REDIRECT;
 
+// -- Frontend URL (for OAuth callbacks) --
+const FRONTEND_URL = process.env.FRONTEND_URL || (IS_HF ? HF_URL : 'http://localhost:5175');
+
 console.log(`📡 Redirect URI configured as: ${GOOGLE_REDIRECT_URI}`);
+console.log(`💻 Frontend URL configured as: ${FRONTEND_URL}`);
 
 // ── Session storage (JSON file) ───────────────────────────────────────────────
 const DB_FILE = path.resolve('database.json');

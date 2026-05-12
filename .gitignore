@@ -89,7 +89,6 @@ screenshots/
 screenshots.zip
 frontend\ copy/
 scratch/
-feedback_log.json
 
 # ── Hugging Face & Deployment Exclusions ────────────────────────────────────
 **/*.png
