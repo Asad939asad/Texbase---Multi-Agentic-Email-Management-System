@@ -68,7 +68,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install Frameworks
-        run: pip install -r AgenticControl/PO:Quotation/requirements.txt
+        run: pip install -r requirements.txt
       - name: Run Headless Evaluation
         env:
           GEMINI_API_KEY_2: ${{ secrets.GEMINI_API_KEY_2 }}

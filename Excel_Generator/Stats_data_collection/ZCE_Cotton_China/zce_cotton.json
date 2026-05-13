@@ -1,18 +1,18 @@
 {
-    "scraped_at": "2026-05-10T18:16:02.433541",
+    "scraped_at": "2026-05-12T17:50:05.491227",
     "source": "https://www.barchart.com/futures/quotes/WQ*0/futures-prices",
     "symbol": "WQU26",
     "symbol_name": "CZCE Cotton No.1",
     "contract_name": "CZCE Cotton No.1 (Sep '26)",
     "exchange": "ZCE",
-    "last_price": "16,470s",
-    "price_change": "-285",
-    "percent_change": "-1.70%",
-    "trade_date": "05/08/26",
-    "daily_last_price": 16470,
+    "last_price": "16,440s",
+    "price_change": "+40",
+    "percent_change": "+0.24%",
+    "trade_date": "05/12/26",
+    "daily_last_price": 16400,
     "point_value": "CNY 5",
     "category": "Softs",
-    "last_price_raw": 16470,
-    "price_change_raw": -285,
-    "percent_change_raw": -1.7
+    "last_price_raw": 16440,
+    "price_change_raw": 40,
+    "percent_change_raw": 0.24
 }

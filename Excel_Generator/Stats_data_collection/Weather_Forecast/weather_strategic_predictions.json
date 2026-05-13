@@ -1,135 +1,135 @@
 {
-    "generated_at": "2026-05-10T18:19:07.739977",
-    "forecast_period": "2026-05-10 to 2026-05-25",
+    "generated_at": "2026-05-12T17:51:45.275652",
+    "forecast_period": "2026-05-12 to 2026-05-27",
     "crop_season": "Kharif Sowing (Apr-Jun) — price-sensitive",
     "regional_stats": {
         "sindh": {
             "region": "Sindh",
-            "total_rain_mm": 0.1,
-            "max_rain_chance_pct": 6,
-            "max_temp_c": 48.0,
-            "min_temp_c": 25.0,
-            "avg_max_temp_c": 43.3,
+            "total_rain_mm": 0.9,
+            "max_rain_chance_pct": 20,
+            "max_temp_c": 49.3,
+            "min_temp_c": 25.1,
+            "avg_max_temp_c": 43.0,
             "max_consec_rainy_days": 0,
-            "heatwave_days_45plus": 25,
+            "heatwave_days_45plus": 20,
             "peak_rain_event": {
-                "city": "Hyderabad",
-                "date": "2026-05-12",
-                "mm": 0.1
+                "city": "Ghotki",
+                "date": "2026-05-13",
+                "mm": 0.3
             },
             "peak_heat_event": {
                 "city": "Ghotki",
-                "date": "2026-05-25",
-                "temp": 48.0
+                "date": "2026-05-27",
+                "temp": 49.3
             },
             "city_summaries": [
                 {
-                    "city": "Hyderabad",
-                    "total_rain_mm": 0.1,
-                    "max_rain_chance_pct": 4,
-                    "max_temp_c": 45.0,
-                    "avg_temp_c": 39.6,
-                    "total_rain_hours": 1.0
-                },
-                {
                     "city": "Ghotki",
-                    "total_rain_mm": 0.0,
+                    "total_rain_mm": 0.5,
                     "max_rain_chance_pct": 2,
-                    "max_temp_c": 48.0,
-                    "avg_temp_c": 44.9,
-                    "total_rain_hours": 0.0
-                },
-                {
-                    "city": "Khairpur",
-                    "total_rain_mm": 0.0,
-                    "max_rain_chance_pct": 2,
-                    "max_temp_c": 47.6,
-                    "avg_temp_c": 45.1,
-                    "total_rain_hours": 0.0
+                    "max_temp_c": 49.3,
+                    "avg_temp_c": 44.3,
+                    "total_rain_hours": 4.0
                 },
                 {
                     "city": "Sanghar",
-                    "total_rain_mm": 0.0,
-                    "max_rain_chance_pct": 6,
-                    "max_temp_c": 47.2,
-                    "avg_temp_c": 43.5,
-                    "total_rain_hours": 0.0
+                    "total_rain_mm": 0.2,
+                    "max_rain_chance_pct": 8,
+                    "max_temp_c": 46.8,
+                    "avg_temp_c": 42.9,
+                    "total_rain_hours": 1.0
+                },
+                {
+                    "city": "Hyderabad",
+                    "total_rain_mm": 0.1,
+                    "max_rain_chance_pct": 20,
+                    "max_temp_c": 42.5,
+                    "avg_temp_c": 39.1,
+                    "total_rain_hours": 1.0
+                },
+                {
+                    "city": "Khairpur",
+                    "total_rain_mm": 0.1,
+                    "max_rain_chance_pct": 2,
+                    "max_temp_c": 48.4,
+                    "avg_temp_c": 45.5,
+                    "total_rain_hours": 1.0
                 }
             ]
         },
         "punjab": {
             "region": "Punjab",
-            "total_rain_mm": 0.1,
-            "max_rain_chance_pct": 8,
-            "max_temp_c": 49.8,
-            "min_temp_c": 25.0,
+            "total_rain_mm": 4.9,
+            "max_rain_chance_pct": 10,
+            "max_temp_c": 51.3,
+            "min_temp_c": 24.9,
             "avg_max_temp_c": 43.6,
             "max_consec_rainy_days": 0,
-            "heatwave_days_45plus": 10,
+            "heatwave_days_45plus": 32,
             "peak_rain_event": {
-                "city": "Multan",
-                "date": "2026-05-13",
-                "mm": 0.1
+                "city": "Bahawalnagar",
+                "date": "2026-05-15",
+                "mm": 1.1
             },
             "peak_heat_event": {
-                "city": "Multan",
-                "date": "2026-05-25",
-                "temp": 49.8
+                "city": "Khanewal",
+                "date": "2026-05-27",
+                "temp": 51.3
             },
             "city_summaries": [
+                {
+                    "city": "Bahawalnagar",
+                    "total_rain_mm": 2.0,
+                    "max_rain_chance_pct": 8,
+                    "max_temp_c": 48.8,
+                    "avg_temp_c": 43.5,
+                    "total_rain_hours": 4.0
+                },
+                {
+                    "city": "Rahim Yar Khan",
+                    "total_rain_mm": 1.0,
+                    "max_rain_chance_pct": 8,
+                    "max_temp_c": 49.2,
+                    "avg_temp_c": 43.5,
+                    "total_rain_hours": 3.0
+                },
+                {
+                    "city": "Lodhran",
+                    "total_rain_mm": 0.9,
+                    "max_rain_chance_pct": 10,
+                    "max_temp_c": 50.7,
+                    "avg_temp_c": 43.9,
+                    "total_rain_hours": 7.0
+                },
+                {
+                    "city": "Bahawalpur",
+                    "total_rain_mm": 0.8,
+                    "max_rain_chance_pct": 10,
+                    "max_temp_c": 49.7,
+                    "avg_temp_c": 43.6,
+                    "total_rain_hours": 4.0
+                },
+                {
+                    "city": "Khanewal",
+                    "total_rain_mm": 0.1,
+                    "max_rain_chance_pct": 6,
+                    "max_temp_c": 51.3,
+                    "avg_temp_c": 43.4,
+                    "total_rain_hours": 1.0
+                },
                 {
                     "city": "Multan",
                     "total_rain_mm": 0.1,
                     "max_rain_chance_pct": 6,
-                    "max_temp_c": 49.8,
-                    "avg_temp_c": 43.6,
+                    "max_temp_c": 50.9,
+                    "avg_temp_c": 44.0,
                     "total_rain_hours": 1.0
-                },
-                {
-                    "city": "Bahawalnagar",
-                    "total_rain_mm": 0.0,
-                    "max_rain_chance_pct": 6,
-                    "max_temp_c": 47.3,
-                    "avg_temp_c": 43.5,
-                    "total_rain_hours": 0.0
-                },
-                {
-                    "city": "Bahawalpur",
-                    "total_rain_mm": 0.0,
-                    "max_rain_chance_pct": 6,
-                    "max_temp_c": 47.9,
-                    "avg_temp_c": 43.6,
-                    "total_rain_hours": 0.0
-                },
-                {
-                    "city": "Khanewal",
-                    "total_rain_mm": 0.0,
-                    "max_rain_chance_pct": 3,
-                    "max_temp_c": 49.5,
-                    "avg_temp_c": 43.0,
-                    "total_rain_hours": 0.0
-                },
-                {
-                    "city": "Lodhran",
-                    "total_rain_mm": 0.0,
-                    "max_rain_chance_pct": 6,
-                    "max_temp_c": 49.1,
-                    "avg_temp_c": 44.1,
-                    "total_rain_hours": 0.0
-                },
-                {
-                    "city": "Rahim Yar Khan",
-                    "total_rain_mm": 0.0,
-                    "max_rain_chance_pct": 8,
-                    "max_temp_c": 47.7,
-                    "avg_temp_c": 43.8,
-                    "total_rain_hours": 0.0
                 }
             ]
         }
     },
     "critical_days": [],
     "weather_strategy": {
-        "raw_llm_response": "LLM Connection Error: HTTPConnectionPool(host='localhost', port=8003): Max retries exceeded with url: /generate (Caused by NewConnectionError(\"HTTPConnection(host='localhost', port=8003): Failed to establish a new connection: [Errno 61] Connection refused\"))"
+        "raw_llm_response": "LLM Connection Error: HTTPSConnectionPool(host='unscotched-devon-interpapillary.ngrok-free.dev', port=443): Max retries exceeded with url: /generate (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1028)')))"
     }
 }
